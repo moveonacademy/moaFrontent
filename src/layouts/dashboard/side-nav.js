@@ -106,7 +106,6 @@ if(user.get("email")){
   await query22.equalTo("teacherEmail",user.get("email"))
   
   const teacher22 = await query22.first();
-  console.log("teacher"+JSON.stringify(teacher22))
   if(teacher22){
 
     setIsTeacher(false)
@@ -120,10 +119,7 @@ if(user.get("email")){
   const query3 = new Moralis.Query("Students");
   await query3.equalTo("studentEmail",user.get("email"))
   
-  console.log("teacher"+JSON.stringify(user.get("email")))
   const student = await query3.first();
-  console.log("teacher"+JSON.stringify(teacher))  
-  console.log("student"+JSON.stringify(student))
 
   if(student){
 
