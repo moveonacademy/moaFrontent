@@ -10,20 +10,14 @@ import MicNoneIcon from '@mui/icons-material/MicNone';
 import { useMoralis } from 'react-moralis';
 import { useWhisper } from '@chengsokdara/use-whisper'
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
+import { async } from 'react-cloudinary-upload-widget';
+import OpenAI from 'openai';
+const openai = new OpenAI({ apiKey:process.env.OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
 
 const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
-  const {
-    recording,
-    speaking,
-    transcribing,
-    transcript,
-    pauseRecording,
-    startRecording,
-    stopRecording,
-  } = useWhisper({
-    apiKey: process.env.OPEN_IA, // YOUR_OPEN_AI_TOKEN
-  })
+
   async function handleSpeaker() {
     setLoading2(true);
   }
@@ -48,7 +42,20 @@ const Chatbot = () => {
   const [values, setValues] = useState({
     userResponse: "",
   });
+  const recorderControls = useAudioRecorder()
+  const addAudioElement = async(blob) => {
 
+    const url = URL.createObjectURL(blob);
+    const audio = document.createElement("audio");
+    audio.src = url;
+    audio.controls = true;
+    document.body.appendChild(audio);
+    const completion = await openai.audio.transcriptions.create({
+      file: blob,
+      model: "whisper-1",
+  });
+  console.log(JSON.stringify(completion))
+  };
   async function handleChat(){
     let newHistory = [...history, { role: "user", content: values.userResponse}];
   
@@ -94,6 +101,7 @@ useEffect(()=>{
   return (
     <div style={{ position: "relative", height: "90%" }}>
        
+      <p>Transcribed Text: {transcript.text}</p>
       <MainContainer style={{ marginTop: 20 }}>
        <ChatContainer>
           <MessageList>
@@ -135,8 +143,14 @@ useEffect(()=>{
             }}
 
             sendDisabled={false} onSend={handleChat} value={values.userResponse} onChange={handleChange} placeholder="Type message here" />
-            <Button  onClick={isLoading?handleStop:handleStart} variant="contained">{ isLoading?    <MicIcon/>    
- :<MicNoneIcon/>}</Button>
+         <AudioRecorder 
+        onRecordingComplete={(blob) => addAudioElement(blob)}
+        recorderControls={recorderControls}
+      />
+        
+        
+          {/*   <Button  onClick={isLoading?handleStop:handleStart} variant="contained">{ isLoading?    <MicIcon/>    
+ :<MicNoneIcon/>}</Button> */}
           </div>
         </ChatContainer>
       </MainContainer>
