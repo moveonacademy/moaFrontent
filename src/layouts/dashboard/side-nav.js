@@ -64,17 +64,13 @@ const [,setEmail]=useState("")
   useEffect(
     () => {
 async function init(){
-  console.log("entro aquiiiiii")
   let user=await Moralis.User.current()
 
 if(user.get("email")){
-  console.log("entro aq222222222uiiiiii")
-  console.log("entro aq222222222uiiiiii"+user.get("email"))
 
   setEmail(user.get("email"))
   const query = new Moralis.Query("Moderators");
    query.equalTo("email",user.get("email"))
-  console.log(user.get("email"))
 
   const moderator = await query.first();
 

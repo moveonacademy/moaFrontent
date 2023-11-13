@@ -23,21 +23,7 @@ const Chatbot = () => {
   } = useWhisper({
     apiKey: "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", // YOUR_OPEN_AI_TOKEN
   })
-  const addAudioElement = async (blob) => {
-    const url = URL.createObjectURL(blob);
-    
-    const audio = document.createElement("audio");
-    audio.src = url;
-    audio.controls = true;
-    let res= await Moralis.Cloud.run(
-      "chatgptVoiceToText",
-      { audioBlob:"https://bafkreiha3mmjqrknll4rbwfmshjpj63vkctx43sohfz55w3e25v2zkw7i4.ipfs.nftstorage.link/"}
-    );
-    console.log(JSON.stringify(res))
-
-    document.body.appendChild(audio);
-  };
-
+  
   async function handleSpeaker() {
     setLoading2(true);
   }
