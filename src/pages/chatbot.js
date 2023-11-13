@@ -9,15 +9,12 @@ import Speech from 'react-text-to-speech';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 import { useMoralis } from 'react-moralis';
 import { useWhisper } from '@chengsokdara/use-whisper'
+import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 
 const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
   const {
-    recording,
-    speaking,
-    transcribing,
     transcript,
-    pauseRecording,
     startRecording,
     stopRecording,
   } = useWhisper({
