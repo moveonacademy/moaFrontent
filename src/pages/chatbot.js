@@ -22,7 +22,7 @@ const Chatbot = () => {
     startRecording,
     stopRecording,
   } = useWhisper({
-    apiKey: process.env.NEXT_PUBLIC_OPEN_AI, // YOUR_OPEN_AI_TOKEN
+    apiKey: process.env.OPEN_IA, // YOUR_OPEN_AI_TOKEN
   })
   async function handleSpeaker() {
     setLoading2(true);
