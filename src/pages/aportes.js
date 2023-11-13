@@ -219,7 +219,6 @@ async function handleProgram(){
 
     
     await course.save()
-    console.log("course")
     setChange(!change)
     setError("")
     setValues({programName:"",programDescription:"",programLevel:"",value:""})  
