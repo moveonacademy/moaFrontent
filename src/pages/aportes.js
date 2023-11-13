@@ -84,15 +84,12 @@ const {Moralis,user}=useMoralis()
 
   const handleCellClick = useCallback(
     async (event) => {
-      console.log(JSON.stringify(event))  
-          console.log(JSON.stringify(event.id))
     
           const query = new Moralis.Query("Aportes");
           query.equalTo("uid",event.id)
   
           let res=await query.first()
           setStateID(event.id)
-          console.log(JSON.stringify(res))
           setValue(res.attributes.unities)
       setValues({programName:res.attributes.aporteName,programDescription:res.attributes.aporteDescription})  
   
