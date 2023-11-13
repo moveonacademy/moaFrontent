@@ -18,7 +18,7 @@ const Chatbot = () => {
     startRecording,
     stopRecording,
   } = useWhisper({
-    apiKey: "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", // YOUR_OPEN_AI_TOKEN
+    apiKey: process.env.OPEN_IA, // YOUR_OPEN_AI_TOKEN
   })
   
   async function handleSpeaker() {
@@ -81,6 +81,7 @@ const Chatbot = () => {
 useEffect(()=>{
 
   if(transcript.text){
+    console.log("transcript.text "+transcript.text)
     setValues((prevState) => ({
       ...prevState,
       ["userResponse"]:transcript.text

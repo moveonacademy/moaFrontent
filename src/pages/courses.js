@@ -457,9 +457,6 @@ const [stateID,setStateID]=useState(null)
   
 const handleCellClick = useCallback(
   async (event) => {
-    console.log(JSON.stringify(event))  
-        console.log(JSON.stringify(event.id))
-  
         const query = new Moralis.Query("Courses");
         query.equalTo("uid",event.id)
 

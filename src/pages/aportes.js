@@ -345,7 +345,6 @@ const [, setValue] = useState([...fixedOptions]);
   }catch(e){
     setImageLoading(false)
 
-    console.log(e.message)
   }
     },[acceptedFiles])
   return (
