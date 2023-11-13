@@ -14,13 +14,16 @@ import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
   const {
+    recording,
+    speaking,
+    transcribing,
     transcript,
+    pauseRecording,
     startRecording,
     stopRecording,
   } = useWhisper({
-    apiKey: "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", // YOUR_OPEN_AI_TOKEN
+    apiKey: process.env.NEXT_PUBLIC_OPEN_AI, // YOUR_OPEN_AI_TOKEN
   })
-  
   async function handleSpeaker() {
     setLoading2(true);
   }
@@ -81,7 +84,6 @@ const Chatbot = () => {
 useEffect(()=>{
 
   if(transcript.text){
-    console.log("transcript.text "+transcript.text)
     setValues((prevState) => ({
       ...prevState,
       ["userResponse"]:transcript.text
