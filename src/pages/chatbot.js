@@ -19,7 +19,7 @@ const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
   const [isLoadingAudio, setLoadingAudio] = useState(false);
 
-  const openai = new OpenAI({ apiKey:process.env.OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
+  const openai = new OpenAI({ apiKey:"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", dangerouslyAllowBrowser: true })
 
   async function handleSpeaker() {
     setLoading2(true);
