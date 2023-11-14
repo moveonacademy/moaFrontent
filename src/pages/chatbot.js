@@ -14,12 +14,12 @@ import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import { async } from 'react-cloudinary-upload-widget';
 import OpenAI from 'openai';
 import { CircularProgress } from '@mui/material';
+const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
 
 const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
   const [isLoadingAudio, setLoadingAudio] = useState(false);
 
-  const openai = new OpenAI({ apiKey:"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", dangerouslyAllowBrowser: true })
 
   async function handleSpeaker() {
     setLoading2(true);
