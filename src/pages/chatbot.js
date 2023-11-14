@@ -13,10 +13,13 @@ import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import { async } from 'react-cloudinary-upload-widget';
 import OpenAI from 'openai';
-const openai = new OpenAI({ apiKey:process.env.OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
+import { CircularProgress } from '@mui/material';
 
 const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
+  const [isLoadingAudio, setLoadingAudio] = useState(false);
+
+  const openai = new OpenAI({ apiKey:"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", dangerouslyAllowBrowser: true })
 
   async function handleSpeaker() {
     setLoading2(true);
@@ -44,17 +47,22 @@ const Chatbot = () => {
   });
   const recorderControls = useAudioRecorder()
   const addAudioElement = async(blob) => {
+const file = new File([blob], "input.wav", { type: "audio/wav" });
 
-    const url = URL.createObjectURL(blob);
-    const audio = document.createElement("audio");
-    audio.src = url;
-    audio.controls = true;
-    document.body.appendChild(audio);
     const completion = await openai.audio.transcriptions.create({
-      file: blob,
+      file: file,
       model: "whisper-1",
   });
-  console.log(JSON.stringify(completion))
+  let newHistory = [...history, { role: "user", content: completion.text}];
+  
+  let res=await Moralis.Cloud.run(
+    "chatgpt",
+    { history:newHistory, userResponse:values.userResponse}
+  );
+ 
+console.log(JSON.stringify(res))
+setHistory([...newHistory, {role:"assistant",content:res}])
+
   };
   async function handleChat(){
     let newHistory = [...history, { role: "user", content: values.userResponse}];
@@ -88,20 +96,9 @@ const Chatbot = () => {
         ["userResponse"]: event
       }));
     });
-useEffect(()=>{
-
-  if(transcript.text){
-    setValues((prevState) => ({
-      ...prevState,
-      ["userResponse"]:transcript.text
-    }));
-  }
-}
-,[transcript.text])
   return (
     <div style={{ position: "relative", height: "90%" }}>
        
-      <p>Transcribed Text: {transcript.text}</p>
       <MainContainer style={{ marginTop: 20 }}>
        <ChatContainer>
           <MessageList>
@@ -143,10 +140,12 @@ useEffect(()=>{
             }}
 
             sendDisabled={false} onSend={handleChat} value={values.userResponse} onChange={handleChange} placeholder="Type message here" />
-         <AudioRecorder 
+        {!isLoadingAudio? <AudioRecorder 
+               downloadFileExtension="wav"
+
         onRecordingComplete={(blob) => addAudioElement(blob)}
         recorderControls={recorderControls}
-      />
+      />:<div style={{justifyContent:"center",alignItems:'center',flex:1}}><CircularProgress size={20}/></div>}
         
         
           {/*   <Button  onClick={isLoading?handleStop:handleStart} variant="contained">{ isLoading?    <MicIcon/>    
