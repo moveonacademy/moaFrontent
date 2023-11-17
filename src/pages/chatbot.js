@@ -66,7 +66,6 @@ const file = new File([blob], "input.wav", { type: "audio/wav" });
     { history:newHistory, userResponse:values.userResponse}
   );
  
-console.log(JSON.stringify(res))
 setHistory([...newHistory, {role:"assistant",content:res}])
 
   };
