@@ -16,9 +16,15 @@ import OpenAI from 'openai';
 import { CircularProgress } from '@mui/material';
 const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
 
+import { SayButton } from 'react-say';
+
+import { eld } from 'eld' // use .mjs extension for version <18
+
+
 const Chatbot = () => {
   const [isLoading2, setLoading2] = useState(false);
   const [isLoadingAudio, setLoadingAudio] = useState(false);
+  
 
 
   async function handleSpeaker() {
@@ -64,6 +70,13 @@ console.log(JSON.stringify(res))
 setHistory([...newHistory, {role:"assistant",content:res}])
 
   };
+  const [buffer,setBuffer]=useState(null)
+
+  async function handleTextToSpeech(newSpeech){ 
+    var player = new talkify.TtsPlayer(); //or new talkify.Html5Player()
+    player.playText('Hello world');
+
+  }
   async function handleChat(){
     let newHistory = [...history, { role: "user", content: values.userResponse}];
   
@@ -96,6 +109,9 @@ setHistory([...newHistory, {role:"assistant",content:res}])
         ["userResponse"]: event
       }));
     });
+    const selector = useCallback(voices => [...voices].find(v => v.lang === 'en-US'), []);
+    const selector2 = useCallback(voices => [...voices].find(v => v.lang === 'es-ES'), []);
+
   return (
     <div style={{ position: "relative", height: "90%" }}>
        
@@ -113,17 +129,15 @@ setHistory([...newHistory, {role:"assistant",content:res}])
                     sender: message.role,
                   }}
                 />
-                <Speech
-                  text={message.content}
-                  pitch={1.5}
-                  rate={1}
-                  volume={1}
-                  startBtn={startBtn}
-                  pauseBtn={pauseBtn}
-                  stopBtn={stopBtn}
-                  props={{ title: 'React Text-To-Speech Component' }}
-                  onError={() => console.error('Browser not supported!')}
-                />
+               <SayButton
+    speak={message.content}
+    voice={ eld.detect(message.content).language==="en"?selector:selector2}
+
+
+    >
+    speak
+  </SayButton>
+    
               </div>
             ))}
           </MessageList>
