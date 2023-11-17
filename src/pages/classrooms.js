@@ -133,7 +133,7 @@ async function handleProgram(){
 
     return
   }
-  
+  /* 
   if(values.programLevel===""){
     
     res.set("classroomLevel","Kids") 
@@ -143,7 +143,7 @@ async function handleProgram(){
 
     res.set("classroomLevel",values.classroomLevel) 
 
-  }
+  } */
 
   await res.save()
 
@@ -165,14 +165,14 @@ setLoading(false)
       return
     }
 
-    if(values.classroomLevel===""){
+  /*   if(values.classroomLevel===""){
       
       course.set("classroomLevel","Kids") 
     }else {
 
       course.set("classroomLevel",values.classroomLevel) 
 
-    }
+    } */
     course.set("classroomName",values.classroomName)       
     course.set("classroomDescription",values.classroomDescription)       
     course.set("supportEmail",user.get("email"))       
@@ -315,7 +315,8 @@ setChange(!change)
                     marginBottom:10
                   }}
                   value={values.classroomDescription}
-                />   <TextField
+                /> 
+                {/*  <TextField
                 fullWidth
                 label="Nivel"
                 name="classroomLevel"
@@ -339,7 +340,7 @@ setChange(!change)
                   </option>
                 ))}
               </TextField>
-
+ */}
              
 
               </div>

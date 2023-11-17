@@ -296,6 +296,16 @@ export const itemsManagers = [
       </SvgIcon>
     )
   },
+  {
+    title: 'Salones de clases',
+    path: '/classrooms',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  }
+  ,
   
   {
     title: 'Estudiantes',
