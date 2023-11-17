@@ -434,9 +434,6 @@ const metadata = await client.store({
 
       setError("Falta las fechas del curso")
       return
-    }else{
-      course.set("courseDates",dates)        
-
     }
      let uniqueID=parseInt((Date.now()+ Math.random()).toString())
 
