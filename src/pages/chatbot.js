@@ -77,6 +77,8 @@ setHistory([...newHistory, {role:"assistant",content:res}])
 
   }
   async function handleChat(){
+    setValues({userResponse:""})
+
     let newHistory = [...history, { role: "user", content: values.userResponse}];
   
     let res=await Moralis.Cloud.run(
