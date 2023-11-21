@@ -132,7 +132,7 @@ setHistory([...newHistory, {role:"assistant",content:res}])
                 />
                <SayButton
     speak={message.content}
-    voice={ eld.detect(message.content).language==="en"?selector:selector}
+    voice={ selector}
 
 
     >
