@@ -50,7 +50,7 @@ const top100Films = [
 ];
 const Page = () => {
   const [change, setChange] = useState(false);
-  const { Moralis,user } = useMoralis();
+  const { Moralis,user:userFront } = useMoralis();
 
   const columnsCourse = [
     { field: "id", headerName: "id", width: 70 },
@@ -61,7 +61,8 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      
+      let user=await Moralis.User.current()
+
   
       const query2 = new Moralis.Query("Teachers");
       await query2.equalTo("supportEmail", user.get("email"));
@@ -130,6 +131,8 @@ const Page = () => {
   async function handleTeacher() {
     setError("");
     try {
+      let user=await Moralis.User.current()
+
       setLoading(true);
 
       const Student = Moralis.Object.extend("Teachers");
@@ -887,7 +890,7 @@ const Page = () => {
                 onRowSelectionModelChange={handleDelete}
                 checkboxSelection
                 onCellDoubleClick={handleCellClick}
-              />{user?.get("email")==="sistemamoa2023@gmail.com"?   <Button onClick={handleErase} variant="contained">
+              />{userFront?.get("email")==="sistemamoa2023@gmail.com"?   <Button onClick={handleErase} variant="contained">
               - Borrar
             </Button>:null
            }

@@ -110,7 +110,7 @@ setHistory([...newHistory, {role:"assistant",content:res}])
         ["userResponse"]: event
       }));
     });
-    const selector = useCallback(voices => [...voices].find(v => v.lang === 'en-US'), []);
+    const selector = useCallback(voices => [...voices].find(v => v.lang === 'zh-HK'), []);
 
   return (
     <div style={{ position: "relative", height: "90%" }}>
