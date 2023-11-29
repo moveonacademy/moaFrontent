@@ -10,12 +10,13 @@ import MicNoneIcon from '@mui/icons-material/MicNone';
 import { useMoralis } from 'react-moralis';
 import { useWhisper } from '@chengsokdara/use-whisper'
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
+import { AudioRecorder, useAudioRecorder, } from 'react-audio-voice-recorder';
 import { async } from 'react-cloudinary-upload-widget';
 import OpenAI from 'openai';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Avatar,Stack, Typography } from '@mui/material';
 const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
-
+import user from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SayButton } from 'react-say';
 
 import { eld } from 'eld' // use .mjs extension for version <18
@@ -112,17 +113,27 @@ setHistory([...newHistory, {role:"assistant",content:res}])
     });
     const selector = useCallback(voices => [...voices].find(v => v.lang === 'zh-HK'), []);
 
-  return (
-    <div style={{ position: "relative", height: "90%" }}>
-       
+  return (<div style={{ position: "relative", height: "90%" }}>
+      <Typography style={{textAlign:"center",color:'lightblue'}} variant="h4" component="h3">Chatbot de sistema MOA</Typography>
       <MainContainer style={{ marginTop: 20 }}>
        <ChatContainer>
           <MessageList>
             {history.map((message, index) => (
-              <div key={index}>
+              <Stack style={{marginTop:10,flexDirection:"row"}} key={index}>
+                {message.role=="assistant"?
+                <Avatar
+                alt="Remy Sharp"
+                src="https://bafkreiaos6lu6fvwjooorczobs6k7svnfcfya3zasvixsje77pejoqrvwu.ipfs.nftstorage.link/"
+                sx={{ width: 56, height: 56,marginRight:2 }}
+              />:
+                <AccountCircleIcon                sx={{ width: 56, height: 56,marginRight:2 }}
+                />}
+                 
+
                 <Message
                   key={index}
                   name="userResponse"
+                  style={{marginRight:20}}
                   model={{
                     sentTime: "just now",
                     message: message.role + ": " + message.content,
@@ -130,40 +141,41 @@ setHistory([...newHistory, {role:"assistant",content:res}])
                   }}
                 />
                <SayButton
-    speak={message.content}
+    speak={ message.content }
     voice={ selector}
-
-
-    >
-    speak
+    style={{marginLeft:10,height:30, backgroundColor:"transparent",borderColor:"transparent"}}
+      >
+    <VolumeUpIcon />
   </SayButton>
     
-              </div>
+              </Stack>
             ))}
           </MessageList>
           <div as={MessageInput} style={{
             display: "flex",
             flexDirection: "row",
             flex: 1,
+            paddingLeft:10,
             marginBottom: 0,
           }}>
-            <MessageInput style={{
+            {!isLoadingAudio? <AudioRecorder 
+               downloadFileExtension="wav"
+        onRecordingComplete={(blob) => addAudioElement(blob)}
+        recorderControls={recorderControls}
+        style={{
+          flexGrow: 1,}}
+      />:<div style={{justifyContent:"center",alignItems:'center',flex:1}}><CircularProgress size={20}/></div>}
+            <MessageInput 
+            attachButton={false}  
+            style={{
               flexGrow: 1,
               borderTop: 0,
               flexShrink: "initial"
             }}
 
             sendDisabled={false} onSend={handleChat} value={values.userResponse} onChange={handleChange} placeholder="Type message here" />
-        {!isLoadingAudio? <AudioRecorder 
-               downloadFileExtension="wav"
-
-        onRecordingComplete={(blob) => addAudioElement(blob)}
-        recorderControls={recorderControls}
-      />:<div style={{justifyContent:"center",alignItems:'center',flex:1}}><CircularProgress size={20}/></div>}
         
         
-          {/*   <Button  onClick={isLoading?handleStop:handleStart} variant="contained">{ isLoading?    <MicIcon/>    
- :<MicNoneIcon/>}</Button> */}
           </div>
         </ChatContainer>
       </MainContainer>
