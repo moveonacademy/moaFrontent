@@ -61,9 +61,9 @@ const [isLoading,setLoading]= useState(false)
   const fetchData = async () =>{
 
     try{
-      
+      let user=await Moralis.User.current()
+
       const query = new Moralis.Query("Classrooms");      
-   const userMetadata = await magic.user.getMetadata();
 
 
 
@@ -106,6 +106,7 @@ const [isLoading,setLoading]= useState(false)
 const [error,setError]=useState('')
 
 async function handleProgram(){
+  let user=await Moralis.User.current()
 
   setLoading(true)
   const Classrooms=Moralis.Object.extend("Classrooms")

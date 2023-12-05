@@ -47,6 +47,7 @@ const top100Films = [
   { title: "Italiano", valuesLenguage: "Italiano" },
   { title: "Español", valuesLenguage: "Español" },
   { title: "Aleman", valuesLenguage: "Aleman" },
+  { title: "Frances", valuesLenguage: "Frances" },
 ];
 const Page = () => {
   const [change, setChange] = useState(false);

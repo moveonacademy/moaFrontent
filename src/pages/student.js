@@ -42,6 +42,8 @@ const top100Films = [
   { title: "Italiano", valuesLenguage: "Italiano" },
   { title: "Español", valuesLenguage: "Español" },
   { title: "Aleman", valuesLenguage: "Aleman" },
+  { title: "Frances", valuesLenguage: "Frances" },
+
 ];
 import dayjs from 'dayjs';
 import { useMoralis } from 'react-moralis';
@@ -403,7 +405,14 @@ return
   if(values.studentState){
     res.set("studentState",values.studentState)
   } else{
-    res.set("studentState","Inactivo")
+    res.set("studentState","Activo")
+  
+  }
+  
+  if(values.studentInactivity){
+    res.set("studentInactivity",values.studentInactivity)
+  } else{
+    res.set("studentInactivity",undefined)
   
   }
   if(values.studentInstitute){
@@ -479,6 +488,14 @@ return
       return
     }
 
+    if(values.studentInactivity!==""){
+
+      student.set("studentInactivity",values.studentInactivity)    
+    
+    } else{
+      student.set("studentInactivity",undefined)    
+   
+    }
     if(values.studentLastname!==""){
 
       student.set("studentLastname",values.studentLastname)          
@@ -608,7 +625,7 @@ if(values.studentCity){
 if(values.studentState){
   student.set("studentState",values.studentState)
 } else{
-  student.set("studentState","Inactivo")
+  student.set("studentState","Activo")
 
 }
 if(values.studentInstitute){
@@ -642,15 +659,36 @@ setChange(!change)
 
 }
 
-const estado = [
+
+const studentInactivitys = [
 
   {
-    value: 'Inactivo',
-    label: 'inactivo'
+    value: 'horario',
+    label: 'horario'
   },  {
+    value: 'disponibilidadprofes',
+    label: 'Disponibilidad de Profes'
+  },
+  {
+    value: 'economico',
+    label: 'economico'
+  },
+  {
+    value: 'nodijo',
+    label: 'no dijo'
+  },
+];
+
+const estado = [
+ {
     value: 'Activo',
     label: 'activo'
   },
+  
+  {
+    value: 'Inactivo',
+    label: 'inactivo'
+  }, 
 ];
 
 
@@ -685,6 +723,7 @@ const [change, setChange] = useState(false);
 
   const [values, setValues] = useState({
     studentName: '',
+    studentInactivity: '',
     studentEmail: '', 
     studentTeacher: '', 
     studentAddress: '', 
@@ -779,7 +818,7 @@ const [change, setChange] = useState(false);
             >
               
               
-              <div>
+            { user.get("typeOfUser")!=="Manager"?null: <div>
               <Stack spacing={1}>
                 <Typography variant="h4">
                   Agregar Estudiante
@@ -1055,7 +1094,31 @@ const [change, setChange] = useState(false);
                   ))}
                 </TextField>
                             
-       
+                 { values.studentState!=="Inactivo"?null:
+                <TextField
+                  fullWidth
+                  label="Razon de inactividad"
+                  name="studentInactivity"
+                  onChange={handleChange}
+                  required
+                  select
+                  
+                  style={{
+                    paddingTop:6,
+                    marginBottom:10
+                  }}
+                  SelectProps={{ native: true }}
+                  value={values.studentInactivity}
+                >
+                  {studentInactivitys.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>}
                 <TextField
                   fullWidth
                   label="Curso"
@@ -1095,7 +1158,7 @@ const [change, setChange] = useState(false);
       </LoadingButton>
                 {error!==""?  <Alert variant="outlined" severity="error">{error}</Alert>:null}
 
-              </div>
+              </div>}
             </Stack>
 
             <div style={{ height: 400, width: '100%' }}>

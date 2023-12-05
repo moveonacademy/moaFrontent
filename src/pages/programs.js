@@ -85,7 +85,7 @@ const Container2 = styled.div`
 const Programs = () => {
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
 
-const {Moralis}=useMoralis()
+const {Moralis,user:userInfo}=useMoralis()
   const [change, setChange] = useState(false);
   const [isLoading,setLoading]= useState(false)
 
@@ -103,6 +103,8 @@ const {Moralis}=useMoralis()
           setStateID(event.id)
           console.log(JSON.stringify(res))
           setValue(res.attributes.unities)
+          setAvatar(res.attributes.pdfCourse);
+
       setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programLevel:res.attributes.programLevel})  
   
     },
@@ -453,7 +455,7 @@ const [levels, setLevels] = useState([]);
         }}
       >
         
-        <Container maxWidth="xl">
+      { userInfo?.get("email")==="sistemamoa2023@gmail.com"? <Container maxWidth="xl">
           <Stack spacing={3}>
           <div>
             
@@ -541,13 +543,19 @@ const [levels, setLevels] = useState([]);
              
 
               </div>
-              
+       </Stack>
+    
+          
+        </Container>:null
+}
+         
+              {imageLoading? <CircularProgress />:<div>
+ {userInfo.get("email")==="sistemamoa2023@gmail.com"?  <CardActions> 
+           
 <Typography variant="h6">
                 Agrega un pdf del Programa
          
               </Typography>   
-              {imageLoading? <CircularProgress />:<div>
-   <CardActions> 
      <section className="container">
              <div className="container">
               <Container2 {...getRootProps()}>
@@ -558,7 +566,7 @@ const [levels, setLevels] = useState([]);
    </div>
     
    </section>
-   </CardActions>
+   </CardActions>:null}
 
    <CardContent>
      <Box
@@ -580,6 +588,8 @@ const [levels, setLevels] = useState([]);
      </Box>
    </CardContent>
    </div>}
+
+   {userInfo.get("email")==="sistemamoa2023@gmail.com"?
     <LoadingButton
                          fullWidth
                          size="large"
@@ -592,13 +602,10 @@ const [levels, setLevels] = useState([]);
                          loading={isLoading} variant="outlined">
                   Agregar el Programa
 
-      </LoadingButton>
+      </LoadingButton>:null}
              
                 {error!==""?  <Alert variant="outlined" severity="error">{error}</Alert>:null}
-          </Stack>
-    
-          
-        </Container>
+         
         <Box
         component="main"
         sx={{
