@@ -88,17 +88,21 @@ setTeachers([...studiantes])
   const [isLoading,setLoading]= useState(false)
 
   const fetchData = async () =>{
-
+    let user=await Moralis.User.current()
+console.log("fetchData "+user.get("email"))
     try{
       
       const query2 = new Moralis.Query("Programs");
       const query = new Moralis.Query("CoursesMoveOn");
-      let user=await Moralis.User.current()
 
   
+if(user.get("email")==="sistemamoa2023@gmail.com"||user.get("email")==="golfredo.pf@gmail.com"){
+  query.equalTo("teacherEmail",user.get("email"))
+  query2.equalTo("teacherEmail",user.get("email"))
 
-    query.equalTo("supportEmail",user.get("email"))
+}
       const object = await query.find();
+
       const object2 = await query2.find();
 
 

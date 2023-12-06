@@ -115,13 +115,15 @@ const {Moralis,user:userInfo}=useMoralis()
 
     try{
       let user=await Moralis.User.current()
-
+console.log("userInfo "+userInfo.get("email"))
       const query2 = new Moralis.Query("Unities");
       const query = new Moralis.Query("Programs");
       query2.limit(1000)
        query2.equalTo("supportEmail",user.get("email"))
        const object2 = await query2.find();
     query.limit(1000)
+    query.equalTo("supportEmail",user.get("email"))
+
       const object = await query.find();
        let courses=[]
      
@@ -454,8 +456,8 @@ const [levels, setLevels] = useState([]);
           py: 8
         }}
       >
-        
-      { userInfo?.get("email")==="sistemamoa2023@gmail.com"? <Container maxWidth="xl">
+         
+      { userInfo.get("email")==="sistemamoa2023@gmail.com"||userInfo.get("email")==="golfredo.pf@gmail.com"? <Container maxWidth="xl">
           <Stack spacing={3}>
           <div>
             
@@ -550,7 +552,7 @@ const [levels, setLevels] = useState([]);
 }
          
               {imageLoading? <CircularProgress />:<div>
- {userInfo.get("email")==="sistemamoa2023@gmail.com"?  <CardActions> 
+ {userInfo.get("email")==="sistemamoa2023@gmail.com"||userInfo.get("email")==="golfredo.pf@gmail.com"?  <CardActions> 
            
 <Typography variant="h6">
                 Agrega un pdf del Programa
@@ -589,7 +591,7 @@ const [levels, setLevels] = useState([]);
    </CardContent>
    </div>}
 
-   {userInfo.get("email")==="sistemamoa2023@gmail.com"?
+   {userInfo.get("email")==="sistemamoa2023@gmail.com"||userInfo.get("email")==="golfredo.pf@gmail.com"?
     <LoadingButton
                          fullWidth
                          size="large"
