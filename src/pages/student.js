@@ -716,8 +716,28 @@ setRowsToDelete(event)
   []
 );
 const [change, setChange] = useState(false);
+const [manager, setManager] = useState(false);
 
   useEffect(()=>{
+    async function init(){
+if(user){
+
+  const query = new Moralis.Query("Moderators");
+  query.equalTo("email",user.get("email"))
+
+  let res= await query.first()
+  console.log(JSON.stringify(res))
+  if(res.attributes.typeOfUser==="Manager"||res.attributes.typeOfUser==="admin"){
+    console.log(JSON.stringify("entrooo"))
+
+    setManager(true)
+  }
+
+}
+
+    }
+
+    init()
     fetchData()
 },[change]);
 
@@ -818,7 +838,7 @@ const [change, setChange] = useState(false);
             >
               
               
-            { user.get("typeOfUser")!=="Manager"?null: <div>
+            { !manager?null: <div>
               <Stack spacing={1}>
                 <Typography variant="h4">
                   Agregar Estudiante
