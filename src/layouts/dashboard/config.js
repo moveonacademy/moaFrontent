@@ -304,9 +304,17 @@ export const itemsManagers = [
         <UserIcon />
       </SvgIcon>
     )
+  },
+  {
+    title: 'Profesores',
+    path: '/teachers',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    )
   }
   ,
-  
   {
     title: 'Estudiantes',
     path: '/student',
