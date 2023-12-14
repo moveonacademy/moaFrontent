@@ -174,6 +174,15 @@ export const itemsAdmin = [
     )
   },
   {
+    title: 'Asignar Cursos',
+    path: '/addstudent',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    )
+  },
+  {
     title: 'Calificaciones',
     path: '/qualifications',
     icon: (

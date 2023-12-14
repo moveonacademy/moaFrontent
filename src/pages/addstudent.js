@@ -845,10 +845,7 @@ if(user){
                 <Typography variant="h4">
                   Agregar Estudiante
                 </Typography>
-                
               </Stack>
-
-      
               <TextField
                   fullWidth
                   label="Nombre del Estudiante"
@@ -861,287 +858,7 @@ if(user){
                   }}
                   value={values.studentName}
                 />
-                
-              <TextField
-                  fullWidth
-                  label="Apellido"
-                  name="studentLastname"
-                  onChange={handleChange}
-                  required
-                  style={{
-                    marginTop:10,
-                    marginBottom:10
-                  }}
-                  value={values.studentLastname}
-                />
-              
-<TextField
-                  fullWidth
-                  label="Sexo"
-                  name="studentGender"
-                  onChange={handleChange}
-                  required
-                  select
-                  
-                  style={{
-                    paddingTop:6,
-                    marginBottom:10
-                  }}
-                  SelectProps={{ native: true }}
-                  value={values.studentGender}
-                >
-                  {genders.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
-              <TextField
-                  fullWidth
-                  label="Cedula"
-                  name="studentID"
-                  onChange={handleChange}
-                  required
-                  style={{
-                    marginTop:10,
-                    marginBottom:10
-                  }}
-                  value={values.studentID}
-                />
-                 <TextField
-                  fullWidth
-                  label="Ciudad"
-                  name="studentCity"
-                  onChange={handleChange}
-                  required
-                  style={{
-                    marginTop:10,
-                    marginBottom:10
-                  }}
-                  value={values.studentCity}
-                />
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-
-                <DateTimePicker
-                label="Fecha de Nacimiento"
-                value={dateBirthday}
-                onChange={(newValue) => setDateBirtday(newValue)}
-                />   
-               </LocalizationProvider>
-
-                  <TextField
-                  fullWidth
-                  label="Correo Electronico"
-                  name="studentEmail"
-                  onChange={handleChange}
-                  required
-                  style={{
-                    marginTop:10,
-                    marginBottom:10
-                  }}
-                  value={values.studentEmail}
-                /> 
-                 <TextField
-                  fullWidth
-                  label="Direccion"
-                  name="studentAddress"
-                  onChange={handleChange}
-                  required
-                  style={{
-                    marginTop:10,
-                    marginBottom:10
-                  }}
-                  value={values.studentAddress}
-                />
-                  <TextField
-                  fullWidth
-                  label="Ocupacion"
-                  name="studentOcupacion"
-                  onChange={handleChange}
-                  required
-                  style={{
-                    marginTop:10,
-                    marginBottom:10
-                  }}
-                  value={values.studentOcupacion}
-                />
-                 <TextField
-                fullWidth
-                label="Telefono"
-                name="studentPhone"
-                onChange={handleChange}
-                required
-                style={{
-                  marginTop:10,
-                  marginBottom:10
-                }}
-                value={values.studentPhone}
-              />
-                 <TextField
-                fullWidth
-                label="Alergias"
-                name="studentAlergies"
-                onChange={handleChange}
-                required
-                style={{
-                  marginTop:10,
-                  marginBottom:10
-                }}
-                value={values.studentAlergies}
-              />
-               <TextField
-                fullWidth
-                label="Comentarios"
-                name="studentComments"
-                onChange={handleChange}
-                required
-                style={{
-                  marginTop:10,
-                  marginBottom:10
-                }}
-                value={values.studentComments}
-              /> 
-              <TextField
-              fullWidth
-              label="Nivel Academico"
-              name="studentDegree"
-              onChange={handleChange}
-              required
-              style={{
-                marginTop:10,
-                marginBottom:10
-              }}
-              value={values.studentDegree}
-            />  
-              <TextField
-            fullWidth
-            label="Instituto"
-            name="studentInstitute"
-            onChange={handleChange}
-            required
-            style={{
-              marginTop:10,
-              marginBottom:10
-            }}
-            value={values.studentInstitute}
-          />
-
-<Autocomplete
-      multiple
-
-      id="checkboxes-tags-demo"
-
-      options={top100Films}
-      
-      name="valuesLenguage"
-            value={valuesLenguage}
-
-      onChange={(event, newValue) => {
-        setValueLenguage(newValue);
-      }}
-
-      disableCloseOnSelect
-
-      getOptionLabel={(option) => option.title}
-      renderOption={(props, option, { selected }) => (
-        <li {...props}>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
-          {option.title}
-        </li>
-      )}
-
-      style={{ width: 500 }}
-
-      renderInput={(params) => (
-        <TextField {...params} label="Lenguages" placeholder="Idiomas" />
-      )}
-
-    />    
             <TextField
-                  fullWidth
-                  label="Procedencia"
-                  name="studentProcedence"
-                  onChange={handleChange}
-                  required
-                  select
-                  
-                  style={{
-                    paddingTop:6,
-                    marginBottom:10
-                  }}
-                  SelectProps={{ native: true }}
-                  value={values.studentProcedence}
-                >
-                  {procedence.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>  
-                
-                      
-          <TextField
-                  fullWidth
-                  label="Estado"
-                  name="studentState"
-                  onChange={handleChange}
-                  required
-                  select
-                  
-                  style={{
-                    paddingTop:6,
-                    marginBottom:10
-                  }}
-                  SelectProps={{ native: true }}
-                  value={values.studentState}
-                >
-                  {estado.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
-                            
-                 { values.studentState!=="Inactivo"?null:
-                <TextField
-                  fullWidth
-                  label="Razon de inactividad"
-                  name="studentInactivity"
-                  onChange={handleChange}
-                  required
-                  select
-                  
-                  style={{
-                    paddingTop:6,
-                    marginBottom:10
-                  }}
-                  SelectProps={{ native: true }}
-                  value={values.studentInactivity}
-                >
-                  {studentInactivitys.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>}
-                {/* <TextField
                   fullWidth
                   label="Curso"
                   name="studentCourse"
@@ -1162,7 +879,7 @@ if(user){
                       {option.label}
                     </option>
                   ))}
-                </TextField>    */}      
+                </TextField>     
                 
                
            <LoadingButton
@@ -1185,18 +902,16 @@ if(user){
 
             <div style={{ height: 400, width: '100%' }}>
               
-      <DataGrid
-        rows={rowsStudents}
-        columns={columnsCourse}
-        autoPageSize
-        onRowSelectionModelChange={handleDelete}
-        checkboxSelection
-        onCellDoubleClick={handleCellClick}
-      />
+            <DataGrid
+                  rows={rowsStudents}
+                  columns={columnsCourse}
+                  autoPageSize
+                   onRowSelectionModelChange={handleDelete}
+                  checkboxSelection
+                  onCellDoubleClick={handleCellClick}
+             />
 
-        <Button
-                 
-                  
+               <Button
                  onClick={()=>handleErase()}
                  variant="contained"
                >

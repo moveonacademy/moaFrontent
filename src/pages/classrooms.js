@@ -65,9 +65,21 @@ const [isLoading,setLoading]= useState(false)
 
       const query = new Moralis.Query("Classrooms");      
 
+      const query2 = new Moralis.Query("Moderators");
+      query2.equalTo("email",user.get("email"))
 
+      let res2= await query2.first()
+      query.limit(1000)
 
-      query.equalTo("supportEmail",user.get("email"))
+  console.log(JSON.stringify(res2))
+  if(res2.attributes.typeOfUser==="Manager"||res2.attributes.typeOfUser==="admin"){
+    console.log(JSON.stringify("entrooo"))
+
+  } else{
+    query.equalTo("supportEmail",user.get("email"))
+
+  }
+
 
       const object = await query.find();
        let courses=[]
@@ -88,7 +100,7 @@ const [isLoading,setLoading]= useState(false)
     
       
       setRowsCourse([...courses])
-    } 
+     } 
     catch(err){
       console.log(err);
     }
@@ -125,7 +137,7 @@ async function handleProgram(){
     setError("Falta el nombre del classroom")
 
     return
-  }
+  }/* 
   if(values.classroomDescription!==""){
 
     res.set("classroomDescription",values.classroomDescription)
@@ -133,7 +145,7 @@ async function handleProgram(){
     setError("Falta la descripcion del classroom")
 
     return
-  }
+  } */
   /* 
   if(values.programLevel===""){
     
@@ -160,11 +172,11 @@ setLoading(false)
       setError("Falta el nombre del programa")
       return
     }
-    if(values.classroomDescription===""){
+    /* if(values.classroomDescription===""){
       
       setError("Falta la descripcion del programa")
       return
-    }
+    } */
 
   /*   if(values.classroomLevel===""){
       
@@ -261,7 +273,7 @@ setChange(!change)
     { field: 'id', headerName: 'id', width: 70 },
     { field: 'classroomName', headerName: 'classroomName', width: 200 },
 
-    { field: 'classroomLevel', headerName: 'classroomLevel', width: 200 },
+   // { field: 'classroomLevel', headerName: 'classroomLevel', width: 200 },
 
     { field: 'classroomDescription', headerName: 'classroomDescription', width: 200 },
   ];

@@ -88,6 +88,7 @@ const Programs = () => {
 const {Moralis,user:userInfo}=useMoralis()
   const [change, setChange] = useState(false);
   const [isLoading,setLoading]= useState(false)
+  const [isModerator,setIsModerator]= useState(false)
 
   const [stateID,setStateID]=useState(null)
 
@@ -116,6 +117,24 @@ const {Moralis,user:userInfo}=useMoralis()
     try{
       let user=await Moralis.User.current()
 console.log("userInfo "+userInfo.get("email"))
+if(userInfo.get("email")){
+  const query = new Moralis.Query("Moderators");
+  query.equalTo("email",userInfo.get("email"))
+  const object = await query.first();
+  console.log("object "+JSON.stringify(object))
+
+  console.log("object "+JSON.stringify(object.attributes.typeOfUser))
+  if(object&&(object.attributes.typeOfUser==="Manager"||object.attributes.typeOfUser==="admin")){
+   console.log("entrooo")
+  setIsModerator(true)
+ 
+}else{
+  console.log("entroo2o")
+
+  setIsModerator(false)
+
+}
+}
       const query2 = new Moralis.Query("Unities");
       const query = new Moralis.Query("Programs");
       query2.limit(1000)
@@ -457,7 +476,7 @@ const [levels, setLevels] = useState([]);
         }}
       >
          
-      { userInfo.get("email")==="sistemamoa2023@gmail.com"||userInfo.get("email")==="golfredo.pf@gmail.com"? <Container maxWidth="xl">
+      { isModerator? <Container maxWidth="xl">
           <Stack spacing={3}>
           <div>
             
@@ -552,7 +571,7 @@ const [levels, setLevels] = useState([]);
 }
          
               {imageLoading? <CircularProgress />:<div>
- {userInfo.get("email")==="sistemamoa2023@gmail.com"||userInfo.get("email")==="golfredo.pf@gmail.com"?  <CardActions> 
+ {isModerator?  <CardActions> 
            
 <Typography variant="h6">
                 Agrega un pdf del Programa
@@ -591,7 +610,7 @@ const [levels, setLevels] = useState([]);
    </CardContent>
    </div>}
 
-   {userInfo.get("email")==="sistemamoa2023@gmail.com"||userInfo.get("email")==="golfredo.pf@gmail.com"?
+   {isModerator?
     <LoadingButton
                          fullWidth
                          size="large"
