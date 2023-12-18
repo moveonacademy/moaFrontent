@@ -1,3 +1,5 @@
+
+
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -30,6 +32,7 @@ const App = (props) => {
   return (   
     <CacheProvider value={emotionCache}>
       <Head>
+        
         <title>
           MoveOnAcademy
         </title>
@@ -64,19 +67,7 @@ const App = (props) => {
       </ThemeProvider>
 
               </MoralisProvider>
-   {/*            
-      <Script
-        src="https://cdn.voiceflow.com/widget/bundle.mjs"
-        strategy="lazyOnload"
-        onLoad={() =>
-
-          window.voiceflow.chat.load({
-            verify: { projectID: '653a78d8978fad000708e03e' },
-            url: 'https://general-runtime.voiceflow.com',
-            versionID: 'production'
-          })
-        }
-      />   */}
+  
     </CacheProvider>
   );
 };

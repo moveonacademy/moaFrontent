@@ -16,7 +16,6 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable array-callback-return */
 
-
 /* eslint-disable no-loop-func */
 /* eslint-disable no-inline-comments */
 /* eslint-disable no-inline-comments */
