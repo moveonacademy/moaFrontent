@@ -211,6 +211,7 @@ async function initStreaming(){
       body: JSON.stringify({answer: sessionClientAnswer, session_id: sessionId})
     });
 }
+const [connected,setConnected]=useState()
   useEffect(()=>{
     
      talkVideo = document.getElementById('talk-video');
@@ -224,7 +225,48 @@ async function initStreaming(){
      talkButton = document.getElementById('talk-button');
 
     connectButton = document.getElementById('connect-button');
-    initStreaming()
+
+    connectButton.onclick = async () => {
+      if (peerConnection && peerConnection.connectionState === 'connected') {
+       setConnected(true)
+        return;
+      }
+    
+      stopAllStreams();
+      closePC();
+    
+      const sessionResponse = await fetch(`${DID_API.url}/talks/streams`, {
+        method: 'POST',
+        headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          source_url: "https://i.postimg.cc/fLdQq0DW/thumbnail.jpg",
+        }),
+      });
+    
+      const { id: newStreamId, offer, ice_servers: iceServers, session_id: newSessionId } = await sessionResponse.json()
+      streamId = newStreamId;
+      sessionId = newSessionId;
+      
+      try {
+        sessionClientAnswer = await createPeerConnection(offer, iceServers);
+            setConnected(true)
+
+      } catch (e) {
+        console.log('error during streaming setup', e);
+        stopAllStreams();
+        closePC();
+               setConnected(false)
+
+        return;
+      }
+    
+      const sdpResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}/sdp`,
+        {
+          method: 'POST',
+          headers: {Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
+          body: JSON.stringify({answer: sessionClientAnswer, session_id: sessionId})
+        });
+    };
   // This is changed to accept the ChatGPT response as Text input to D-ID #138 responseFromOpenAI 
   talkButton.onclick = async () => {
     console.log("signal "+peerConnection?.signalingState)
@@ -298,6 +340,10 @@ async function initStreaming(){
   
   },[])
   
+useEffect(()=>{
+ // initStreaming()
+
+},[])
   
   // NOTHING BELOW THIS LINE IS CHANGED FROM ORIGNAL D-id File Example
   //
@@ -479,8 +525,9 @@ async function initStreaming(){
     }
   }
   return (
-    <div style={{ position: "relative", flexDirection:"row",height: "90%" }}>
-      
+    <div style={{ position: "relative",justifyContent:"center",alignItems:"center", flexDirection:"row",height: "90%" }}>
+        <button style={{backgroundColor:connected?'green':'blue'}} disabled={connected?true:false} id="connect-button" type="button">{connected?"Conectado":"Iniciar Chatbot"}</button>
+
     <div id="status" >
       <Box style={{flexDirection:'row',position:"absolute",opacity:0}}>
              gathering : <label id="ice-gathering-status-label"></label>
@@ -532,8 +579,8 @@ async function initStreaming(){
                      
       
         <input type="text" id="user-input-field" placeholder="I am your english teacher..."/>
-    
-                 <button style={{marginLeft:-80}} id="talk-button" type="button">Send</button>
+  
+                 <button style={{marginLeft:-80}}  disabled={connected} id="talk-button" type="button">Send</button>
                  {!isLoadingAudio? <AudioRecorder 
                downloadFileExtension="wav"
         onRecordingComplete={(blob) => addAudioElement(blob)}
