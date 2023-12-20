@@ -211,7 +211,9 @@ async function initStreaming(){
       body: JSON.stringify({answer: sessionClientAnswer, session_id: sessionId})
     });
 }
-const [connected,setConnected]=useState()
+const [iniciando,setIniciando]=useState(false)
+
+const [connected,setConnected]=useState(false)
   useEffect(()=>{
     
      talkVideo = document.getElementById('talk-video');
@@ -231,6 +233,7 @@ const [connected,setConnected]=useState()
        setConnected(true)
         return;
       }
+      setIniciando(true)
     
       stopAllStreams();
       closePC();
@@ -250,12 +253,15 @@ const [connected,setConnected]=useState()
       try {
         sessionClientAnswer = await createPeerConnection(offer, iceServers);
             setConnected(true)
+            setIniciando(false)
 
       } catch (e) {
         console.log('error during streaming setup', e);
         stopAllStreams();
         closePC();
                setConnected(false)
+               setIniciando(false)
+
 
         return;
       }
@@ -527,7 +533,7 @@ useEffect(()=>{
   }
   return (
     <div style={{ position: "relative",justifyContent:"center",alignItems:"center", flexDirection:"row",height: "90%" }}>
-        <button style={{backgroundColor:connected?'green':'blue'}} disabled={connected?true:false} id="connect-button" type="button">{connected?"Conectado":"Iniciar Chatbot"}</button>
+        <button style={{backgroundColor:connected?'green':'blue'}} disabled={connected?true:false} id="connect-button" type="button">{connected?"Conectado":iniciando?"Cargando":"Iniciar Chatbot"}</button>
 
     <div id="status" >
       <Box style={{flexDirection:'row',position:"absolute",opacity:0}}>
