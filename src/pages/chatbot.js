@@ -1,20 +1,126 @@
 // 'use strict';
-import { useEffect } from 'react';
 import DID_API from './api.json' assert { type: 'json' };
+import { SayButton } from 'react-say';
+import { useEffect, useCallback, useState } from 'react';
+import MicIcon from '@mui/icons-material/Mic';
+import Button from '@mui/material/Button';
 
-// ... (código anterior)
+
+import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput } from "@chatscope/chat-ui-kit-react";
+import Speech from 'react-text-to-speech';
+import MicNoneIcon from '@mui/icons-material/MicNone';
+import { useMoralis } from 'react-moralis';
+import { useWhisper } from '@chengsokdara/use-whisper'
+import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import { AudioRecorder, useAudioRecorder, } from 'react-audio-voice-recorder';
+import { async } from 'react-cloudinary-upload-widget';
+import OpenAI from 'openai';
+import { CircularProgress, Avatar,Stack, Typography } from '@mui/material';
+import user from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Box } from '@mui/system';
+// ... (código anterior)
+const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true })
 
 const Chatbot = () => {
   'use strict';
-  
+  const selector = useCallback(voices => [...voices].find(v => v.lang === 'zh-HK'), []);
+  const { Moralis } = useMoralis();
+
+
+  const handleChange = useCallback(
+    async (event) => {
+      setValues((prevState) => ({
+        ...prevState,
+        ["userResponse"]: event
+      }));
+    });
+  const [history, setHistory] = useState([
+    {
+      role: "assistant",
+      content: "Bienvenido al chatbot de Move on Academy. Siéntete libre de chatear con MOA",
+    },
+  ]);
   if (DID_API.key == '🤫') alert('Please put your API key inside ./api.json and restart.');
-  
+  const [isLoadingAudio, setLoadingAudio] = useState(false);
+  const recorderControls = useAudioRecorder()
+  const addAudioElement = async(blob) => {
+    const file = new File([blob], "input.wav", { type: "audio/wav" });
+    
+        const completion = await openai.audio.transcriptions.create({
+          file: file,
+          model: "whisper-1",
+      });
+      let newHistory = [...history, { role: "user", content: completion.text}];
+      
+      let res=await Moralis.Cloud.run(
+        "chatgpt",
+        { history:newHistory, userResponse:values.userResponse}
+      );
+     
+    setHistory([...newHistory, {role:"assistant",content:res}])
+    const talkResponse = await fetchWithRetries(`${DID_API.url}/talks/streams/${streamId}`, {
+      method: 'POST',
+      headers: { 
+        Authorization: `Basic ${DID_API.key}`, 
+        'Content-Type': 'application/json'
+     },
+      body: JSON.stringify({
+        script: {
+          type: 'text',
+          subtitles: 'false',
+          provider: { type: 'microsoft', voice_id: 'en-US-JennyNeural' },
+          ssml: false,
+          input:res  //send the openAIResponse to D-id
+        },
+        config: {
+          fluent: true,
+          pad_audio: 0,
+          driver_expressions: {
+            expressions: [{ expression: 'neutral', start_frame: 0, intensity: 0 }],
+            transition_frames: 0
+          },
+          align_driver: true,
+          align_expand_factor: 0,
+          auto_match: true,
+          motion_factor: 0,
+          normalization_factor: 0,
+          sharpen: true,
+          stitch: true,
+          result_format: 'mp4'
+        },   
+
+        'driver_url': 'bank://lively/',
+        'config': {
+          'stitch': true,
+        },
+        'session_id': sessionId
+      })
+    });
+      };
+  const [values, setValues] = useState({
+    userResponse: "",
+  });
+
   // Load the OpenAI API from file new 10/23 
   // OpenAI API endpoint set up new 10/23 
   async function fetchOpenAIResponse(userMessage) {
   try{
-    
+    setValues({userResponse:""})
+
+    let newHistory = [...history, { role: "user", content: userMessage}];
+  
+    let res=await Moralis.Cloud.run(
+      "chatgpt",
+      { history:newHistory, userResponse:userMessage}
+    );
+   
+  console.log(JSON.stringify(res)) 
+  setHistory([...newHistory, {role:"assistant",content:res}])
+/* 
     const response = await fetchWithRetries('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -27,13 +133,13 @@ const Chatbot = () => {
         temperature: 0.7,
         max_tokens: 25
       }),
-    });
-    console.log("response "+JSON.stringify(response))
+    }); */
+    /* console.log("response "+JSON.stringify(response))
     if (!response.ok) {
       throw new Error(`OpenAI API request failed with status ${response.status}`);
-    }
-    const data = await response.json();
-    return data.choices[0].message.content.trim();
+    } *//* 
+    const data = await response.json(); */
+    return res.trim();
     
   }catch (e){
     console.log(e)
@@ -66,10 +172,47 @@ const Chatbot = () => {
   let talkButton;
   let peerStatusLabel;
 
-  let destroyButton;
-  
+  const [loading,setLoading]=useState(false)
 
+async function initStreaming(){
+  
+  if (peerConnection && peerConnection.connectionState === 'connected') {
+    return;
+  }
+
+  stopAllStreams();
+  closePC();
+
+  const sessionResponse = await fetch(`${DID_API.url}/talks/streams`, {
+    method: 'POST',
+    headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      source_url: "https://i.postimg.cc/fLdQq0DW/thumbnail.jpg",
+    }),
+  });
+
+  const { id: newStreamId, offer, ice_servers: iceServers, session_id: newSessionId } = await sessionResponse.json()
+  streamId = newStreamId;
+  sessionId = newSessionId;
+  
+  try {
+    sessionClientAnswer = await createPeerConnection(offer, iceServers);
+  } catch (e) {
+    console.log('error during streaming setup', e);
+    stopAllStreams();
+    closePC();
+    return;
+  }
+
+  const sdpResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}/sdp`,
+    {
+      method: 'POST',
+      headers: {Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
+      body: JSON.stringify({answer: sessionClientAnswer, session_id: sessionId})
+    });
+}
   useEffect(()=>{
+    
      talkVideo = document.getElementById('talk-video');
 
     talkVideo.setAttribute('playsinline', '');
@@ -79,53 +222,19 @@ const Chatbot = () => {
     signalingStatusLabel = document.getElementById('signaling-status-label');
     streamingStatusLabel = document.getElementById('streaming-status-label');
      talkButton = document.getElementById('talk-button');
-      destroyButton = document.getElementById('destroy-button');
 
     connectButton = document.getElementById('connect-button');
-    connectButton.onclick = async () => {
-      if (peerConnection && peerConnection.connectionState === 'connected') {
-        return;
-      }
-    
-      stopAllStreams();
-      closePC();
-    
-      const sessionResponse = await fetch(`${DID_API.url}/talks/streams`, {
-        method: 'POST',
-        headers: {'Authorization': `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          source_url: "https://raw.githubusercontent.com/jjmlovesgit/D-id_Streaming_Chatgpt/main/oracle_pic.jpg",
-        }),
-      });
-    
-      const { id: newStreamId, offer, ice_servers: iceServers, session_id: newSessionId } = await sessionResponse.json()
-      streamId = newStreamId;
-      sessionId = newSessionId;
-      
-      try {
-        sessionClientAnswer = await createPeerConnection(offer, iceServers);
-      } catch (e) {
-        console.log('error during streaming setup', e);
-        stopAllStreams();
-        closePC();
-        return;
-      }
-    
-      const sdpResponse = await fetch(`${DID_API.url}/talks/streams/${streamId}/sdp`,
-        {
-          method: 'POST',
-          headers: {Authorization: `Basic ${DID_API.key}`, 'Content-Type': 'application/json'},
-          body: JSON.stringify({answer: sessionClientAnswer, session_id: sessionId})
-        });
-    };
-    
+    initStreaming()
   // This is changed to accept the ChatGPT response as Text input to D-ID #138 responseFromOpenAI 
   talkButton.onclick = async () => {
     console.log("signal "+peerConnection?.signalingState)
+    setLoading(true)
     if (peerConnection?.signalingState === 'stable' || peerConnection?.iceConnectionState === 'connected') {
       //
       // New from Jim 10/23 -- Get the user input from the text input field get ChatGPT Response
       const userInput = document.getElementById('user-input-field').value;
+      console.log("userInput "+JSON.stringify(userInput))
+
       const responseFromOpenAI = await fetchOpenAIResponse(userInput);
       //
       // Print the openAIResponse to the console
@@ -163,7 +272,7 @@ const Chatbot = () => {
             result_format: 'mp4'
           },   
 
-          'driver_url': 'bank://subtle/',
+          'driver_url': 'bank://lively/',
           'config': {
             'stitch': true,
           },
@@ -173,7 +282,7 @@ const Chatbot = () => {
       console.log("talkResponse "+JSON.stringify(talkResponse))
     }
   };
-  destroyButton.onclick = async () => {
+  /* destroyButton.onclick = async () => {
     await fetch(`${DID_API.url}/talks/streams/${streamId}`, {
       method: 'DELETE',
       headers: {
@@ -185,7 +294,7 @@ const Chatbot = () => {
   
     stopAllStreams();
     closePC();
-  };
+  }; */
   
   },[])
   
@@ -317,7 +426,7 @@ const Chatbot = () => {
   }
   function playIdleVideo() {
     talkVideo.srcObject = undefined;
-    talkVideo.src = 'oracle_Idle.mp4';
+    talkVideo.src = 'prs_alice.idle.mp4';
     talkVideo.loop = true;
   }
   
@@ -370,36 +479,87 @@ const Chatbot = () => {
     }
   }
   return (
-    <div style={{ position: "relative", height: "90%" }}>
+    <div style={{ position: "relative", flexDirection:"row",height: "90%" }}>
       
-        <div id="content">
-          <div id="video-wrapper">
-            <div>
-              <video id="talk-video" width="400" height="400" autoPlay></video>
-            </div>
-          </div>
-          <br />
-          <div id="input-container">
-            <input type="text" id="user-input-field" placeholder="I am your ChatGPT Live Agent..." />
-            <hr />
-          </div>
-          <div id="buttons">
-            <button id="connect-button" type="button">Connect</button>
-            <button id="talk-button" type="button">Start</button>
-            <button id="destroy-button" type="button">Destroy</button>
-          </div>
-
-          <div id="status">
-            ICE gathering status: <label id="ice-gathering-status-label"></label>
+    <div id="status" >
+      <Box style={{flexDirection:'row',position:"absolute",opacity:0}}>
+             gathering : <label id="ice-gathering-status-label"></label>
             <br />
-            ICE status: <label id="ice-status-label"></label><br />
-            Peer connection status: <label id="peer-status-label"></label><br />
-            Signaling status: <label id="signaling-status-label"></label><br />
-            Streaming status: <label id="streaming-status-label"></label><br />
-          </div>
-        </div>
-        <script type="module" src="../api/index.js"></script>
+             status: <label id="ice-status-label"></label><br />
+             connection : <label id="peer-status-label"></label><br />
+            signaling : <label id="signaling-status-label"></label><br />
+            streaming : <label id="streaming-status-label"></label><br />
+            </Box>   </div>
       
+        <script type="module" src="../api/index.js"></script>
+        <div style={{ position: "relative", flexDirection:"row",height: "90%" }}>
+    
+
+      <MainContainer style={{ marginTop: 20 }}>
+        
+      <div style={{margin:10}}>
+                   <video id="talk-video" width="200" height="200" autoPlay></video>
+                 </div>
+       <ChatContainer>
+          <MessageList>
+            {history.map((message, index) => (
+              <Stack style={{marginTop:10,flexDirection:"row"}} key={index}>
+               
+
+                <Message
+                  key={index}
+                  name="userResponse"
+                  style={{marginRight:20}}
+                  model={{
+                    sentTime: "just now",
+                    message: message.role + ": " + message.content,
+                    sender: message.role,
+                  }}
+                />
+
+    
+              </Stack>
+            ))}
+          </MessageList>
+          <div as={MessageInput} style={{
+            display: "flex",
+            flexDirection: "row",
+            flex: 1,
+            width:"100%",
+            paddingRight:90,
+          }}>
+            
+                     
+      
+        <input type="text" id="user-input-field" placeholder="I am your english teacher..."/>
+    
+                 <button style={{marginLeft:-80}} id="talk-button" type="button">Send</button>
+                 {!isLoadingAudio? <AudioRecorder 
+               downloadFileExtension="wav"
+        onRecordingComplete={(blob) => addAudioElement(blob)}
+        recorderControls={recorderControls}
+        style={{
+          flexGrow: 1,}}
+      />:<div style={{justifyContent:"center",alignItems:'center',flex:1}}><CircularProgress size={20}/></div>}
+{/* 
+            <MessageInput 
+            attachButton={false}  
+            style={{
+              flexGrow: 1,
+              borderTop: 0,
+              flexShrink: "initial"
+            }}
+            id="talk-button"
+            type="button"
+            sendDisabled={false} value={values.userResponse} onChange={handleChange} placeholder="Type message here" />
+        
+         */}
+          </div>
+        </ChatContainer>
+      </MainContainer>
+      
+    </div>
+   
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { AudioRecorder, useAudioRecorder, } from 'react-audio-voice-recorder';
 import { async } from 'react-cloudinary-upload-widget';
 import OpenAI from 'openai';
 import { CircularProgress, Avatar,Stack, Typography } from '@mui/material';
-const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_TOKEN, dangerouslyAllowBrowser: true })
+const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true })
 import user from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SayButton } from 'react-say';
@@ -56,7 +56,7 @@ const Chatbot = () => {
   const addAudioElement = async(blob) => {
 const file = new File([blob], "input.wav", { type: "audio/wav" });
 
-    const completion = await openai.audio.transcriptions.create({
+    let completion = await openai.audio.transcriptions.create({
       file: file,
       model: "whisper-1",
   });
@@ -81,13 +81,13 @@ setHistory([...newHistory, {role:"assistant",content:res}])
     setValues({userResponse:""})
 
     let newHistory = [...history, { role: "user", content: values.userResponse}];
-  
+  /
     let res=await Moralis.Cloud.run(
       "chatgpt",
       { history:newHistory, userResponse:values.userResponse}
     );
    
-  console.log(JSON.stringify(res))
+  console.log(JSON.stringify(res)) 
   setHistory([...newHistory, {role:"assistant",content:res}])
   
   }
@@ -155,7 +155,8 @@ setHistory([...newHistory, {role:"assistant",content:res}])
             display: "flex",
             flexDirection: "row",
             flex: 1,
-            paddingLeft:10,
+            padding
+            Left:10,
             marginBottom: 0,
           }}>
             {!isLoadingAudio? <AudioRecorder 
