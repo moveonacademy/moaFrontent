@@ -275,6 +275,7 @@ const [connected,setConnected]=useState()
       //
       // New from Jim 10/23 -- Get the user input from the text input field get ChatGPT Response
       const userInput = document.getElementById('user-input-field').value;
+      document.getElementById('user-input-field').value = '';
       console.log("userInput "+JSON.stringify(userInput))
 
       const responseFromOpenAI = await fetchOpenAIResponse(userInput);
@@ -578,9 +579,9 @@ useEffect(()=>{
             
                      
       
-        <input type="text" id="user-input-field" placeholder="I am your english teacher..."/>
+        <input type="text" id="user-input-field" placeholder="I am your english assistance..."/>
   
-                 <button style={{marginLeft:-80}}  disabled={connected} id="talk-button" type="button">Send</button>
+                 <button style={{marginLeft:-80}}  disabled={!connected} id="talk-button" type="button">Send</button>
                  {!isLoadingAudio? <AudioRecorder 
                downloadFileExtension="wav"
         onRecordingComplete={(blob) => addAudioElement(blob)}
