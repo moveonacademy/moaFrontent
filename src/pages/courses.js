@@ -938,7 +938,7 @@ const [programs, setPrograms] = useState([...fixedOptions]);
         
         columns={columnsCourse}
         onRowSelectionModelChange={handleDelete}
-checkboxSelection
+
       />
       {isModerator?  
             <Button
