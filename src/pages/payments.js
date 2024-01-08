@@ -281,6 +281,7 @@ const Page = () => {
     bankName: '',
     courseName: '',
     cedula:"",
+    name:"",
     paymentType:"",
     amount:""
   });
@@ -510,10 +511,18 @@ console.log(values.courseName)
       setError("Falta la cedula del pago")
       return 
    }else {   
-       course.set("cedula",values.cedula)       
+       course.set("name",values.name)       
 
     }
-   
+    if(values.name===""){
+      
+
+      setError("Falta el titular del pago")
+      return 
+   }else {   
+       course.set("name",values.name)       
+
+    }
     let uniqueID=parseInt((Date.now()+ Math.random()).toString())
     course.set("uid",uniqueID)
 console.log("llego hasta aqui")
@@ -680,6 +689,18 @@ setImageLoading(false)
                     marginBottom:10
                   }}
                   value={values.referencia}
+                />
+                 <TextField
+                  fullWidth
+                  label="Nombre"
+                  name="name"
+                  onChange={handleChange}
+                  required
+                  style={{
+                    marginTop:10,
+                    marginBottom:10
+                  }}
+                  value={values.name}
                 />
                 <TextField
                   fullWidth

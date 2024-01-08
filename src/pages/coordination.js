@@ -122,7 +122,6 @@ const columnsCourse = [
 
 ];  
 var [courses,setCourses]=useState([])
-const [isModerator, setModerator] = useState(false);
 
   const fetchData = async () =>{
 
@@ -133,9 +132,14 @@ const [isModerator, setModerator] = useState(false);
   const query2 = new Moralis.Query("Courses");
   query2.equalTo("teacherEmail",user.get("email"))
 
+  const cursos = await query2.find();
 
+  const query3 = new Moralis.Query("Teachers");
+  query3.equalTo("teacherEmail",user.get("email"))
+   const object3 = await query3.first();
+console.log(cursos.length)
     const query = new Moralis.Query("Students");
-    query.equalTo("supportEmail",user.get("email"))
+    query.equalTo("supportEmail",object3.attributes.supportEmail)
 
       const object = await query.find();
 
@@ -158,13 +162,13 @@ const [isModerator, setModerator] = useState(false);
 
       let cur=[]
 
-     /*  for(let i=0;i<cursos.length;i++){
+      for(let i=0;i<cursos.length;i++){
         cur=[...cur,{
           value:cursos[i].attributes.uid,
           label:cursos[i].attributes.courseName,
     
          }]
-      } */
+      }
 
       setCourses([...cur])
 
@@ -232,14 +236,6 @@ async function handleStudent(){
         setLoading(false)
 
         return
-      }
-      if(values.statusReason!==""){
-
-        res.set("statusReason",values.statusReason)    
-      
-      } else{
-        res.set("statusReason","ninguna")    
-
       }
       if(values.studentOcupacion!==""){
   
@@ -439,25 +435,16 @@ return
    return 
  }
 
- let user=await Moralis.User.current()
+    
 
-
-    if(user){
+    if(userMetadata){
 
       student.set("supportEmail",user.get("email"))   
     
     } else{
       return
     }
-    if(values.statusReason!==""){
 
-      student.set("statusReason",values.statusReason)    
-    
-    } else{      
-
-      student.set("statusReason","ninguna")    
-
-    }
     if(values.studentName!==""){
 
       student.set("studentName",values.studentName)    
@@ -564,7 +551,8 @@ if(values.studentPhone){
 }
 
 
-/* if(values.studentCourse){
+console.log("values.studentCourse "+values.studentCourse)
+if(values.studentCourse){
   const query2 = new Moralis.Query("Courses");
 
   query2.equalTo("uid",values.studentCourse)
@@ -580,7 +568,7 @@ if(values.studentPhone){
 
   student.set("studentCourse",courses[0].label)
 
-} */
+}
 
 if(values.studentAlergies){
   student.set("studentAlergies",values.studentAlergies)
@@ -832,7 +820,7 @@ if(user){
     <>
       <Head>
         <title>
-           Estudiantes
+           Coordinadores
         </title>
       </Head>
      
@@ -855,7 +843,7 @@ if(user){
             { !manager?null: <div>
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Agregar Estudiante
+                  Agregar Coordinador
                 </Typography>
                 
               </Stack>
@@ -1130,17 +1118,29 @@ if(user){
                             
                  { values.studentState!=="Inactivo"?null:
                 <TextField
-                fullWidth
-                label="Razon de inactividad"
-                name="statusReason"
-                onChange={handleChange}
-                required
-                style={{
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}
-                value={values.statusReason}
-              />}
+                  fullWidth
+                  label="Razon de inactividad"
+                  name="studentInactivity"
+                  onChange={handleChange}
+                  required
+                  select
+                  
+                  style={{
+                    paddingTop:6,
+                    marginBottom:10
+                  }}
+                  SelectProps={{ native: true }}
+                  value={values.studentInactivity}
+                >
+                  {studentInactivitys.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>}
                 {/* <TextField
                   fullWidth
                   label="Curso"

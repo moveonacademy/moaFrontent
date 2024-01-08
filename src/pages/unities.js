@@ -61,7 +61,19 @@ const {Moralis,user}=useMoralis()
       query.limit(1000)
 
       query.equalTo("supportEmail",user.get("email"))
+      const queryModerator = new Moralis.Query("Moderators");
+      await queryModerator.equalTo("email", user.get("email"));
+      
+      const results = await queryModerator.first();
+      console.log("results "+JSON.stringify(user.get("email")))
 
+      console.log("results "+JSON.stringify(results))
+
+      console.log("results "+results.attributes.typeOfUser)
+if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
+  setModerator(true)
+}
+  
       const object = await query.find();
        let courses=[]
       for(let i=0;i<object.length;i++){
@@ -80,6 +92,7 @@ const {Moralis,user}=useMoralis()
   }
 const [error,setError]=useState('')
 const [change, setChange] = useState(false);
+const [isModerator, setModerator] = useState(false);
 
 const [isLoading,setLoading]= useState(false)
   
@@ -649,14 +662,14 @@ setLoading(false)
         onRowSelectionModelChange={handleDelete}
 
       />
-         <Button
-                 
+        {isModerator&& <Button
+                  
                   
                  onClick={handleErase}
                  variant="contained"
                >
                  - Delete
-               </Button>
+               </Button>}
     </div>
           </Stack>
           

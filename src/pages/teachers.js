@@ -52,6 +52,7 @@ const top100Films = [
 const Page = () => {
   const [change, setChange] = useState(false);
   const { Moralis,user:userFront } = useMoralis();
+  const [isModerator, setModerator] = useState(false);
 
   const columnsCourse = [
     { field: "id", headerName: "id", width: 70 },
@@ -67,7 +68,13 @@ const Page = () => {
   
       const query2 = new Moralis.Query("Teachers");
       await query2.equalTo("supportEmail", user.get("email"));
-
+      const queryModerator = new Moralis.Query("Moderators");
+      await queryModerator.equalTo("email", user.get("email"));
+      
+      const results = await queryModerator.first();
+if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
+  setModerator(true)
+}
       const object = await query2.find();
       let studiantes = [];
       for (let i = 0; i < object.length; i++) {
@@ -170,6 +177,13 @@ const Page = () => {
           setLoading(false);
 
           return;
+        }
+        if (values.statusReason !== "") {
+          res.set("statusReason", values.statusReason);
+        } else {
+          res.set("statusReason", "ninguna");
+
+
         }
 
         if (valuesLenguage) {
@@ -479,6 +493,13 @@ const Page = () => {
       } else {
         student.set("teacherState", "Inactivo");
       }
+      if (values.statusReason !== "") {
+        student.set("statusReason", values.statusReason);
+      } else {
+        student.set("statusReason", "ninguna");
+
+
+      }
       let uniqueID = parseInt((Date.now() + Math.random()).toString());
       student.set("uid", uniqueID);
       await student.save();
@@ -520,7 +541,7 @@ const Page = () => {
   const [dateContractStart, setContractStart] = useState(null);
   const [dateContractEnd, setContractEnd] = useState(null);
   const [rowstoDelete, setRowsToDelete] = useState([]);
-
+ 
   async function handleErase() {
     for (let i = 0; i < rowstoDelete.length; i++) {
       const DataFiles = Moralis.Object.extend("Teachers");
@@ -547,6 +568,7 @@ const Page = () => {
     teacherEmail: "",
     teacherLastname: "",
     courseName: "",
+    statusReason: "",
     courseLevel: "",
     rif: "",
     instituto: "",
@@ -824,8 +846,20 @@ const Page = () => {
                       {option.label}
                     </option>
                   ))}
-                </TextField>
-
+                  
+                </TextField>{values.teacherState==="Inactivo"&&
+                <TextField
+                  fullWidth
+                  label="Razon de inactividad"
+                  name="statusReason"
+                  onChange={handleChange}
+                  required
+                  style={{
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}
+                  value={values.statusReason}
+                />}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DateTimePicker
                     label="Fecha de Contratacion"
@@ -891,7 +925,7 @@ const Page = () => {
                 onRowSelectionModelChange={handleDelete}
                 checkboxSelection
                 onCellDoubleClick={handleCellClick}
-              />{userFront?.get("email")==="sistemamoa2023@gmail.com"?   <Button onClick={handleErase} variant="contained">
+              />{isModerator?   <Button onClick={handleErase} variant="contained">
               - Borrar
             </Button>:null
            }

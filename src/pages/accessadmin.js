@@ -41,13 +41,25 @@ import { useCallback, useState,useEffect } from 'react';
 
 const Access = () => {
 
-const {Moralis}=useMoralis()
+const {Moralis,user}=useMoralis()
 var [rows,setRows]=useState([])
 const fetchData = async () =>{
 
   try{
     
 let rows2=[]
+const queryModerator = new Moralis.Query("Moderators");
+await queryModerator.equalTo("email", user.get("email"));
+
+const results = await queryModerator.first();
+console.log("results "+JSON.stringify(user.get("email")))
+
+console.log("results "+JSON.stringify(results))
+
+console.log("results "+results.attributes.typeOfUser)
+if(results.attributes.typeOfUser.toString()=="admin"){
+setModerator(true)
+}
 
     const query = new Moralis.Query("Moderators");
     const object = await query.find();
@@ -259,6 +271,7 @@ useEffect(()=>{
   ); 
 
 
+  const [isModerator, setModerator] = useState(false);
 
 
  return <>
@@ -408,15 +421,15 @@ useEffect(()=>{
         columns={columns}
         onRowSelectionModelChange={handleDelete}
         checkboxSelection
-        />
-   <Button
-                 
+        /> 
+        {isModerator&& <Button
                   
-                 onClick={()=>handleErase()}
-                 variant="contained"
-               >
-                 - Delete
-               </Button>
+                  
+          onClick={handleErase}
+          variant="contained"
+        >
+          - Delete
+        </Button>}
     </div>
           </Stack>
         </Container>

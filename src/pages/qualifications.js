@@ -979,7 +979,7 @@ console.log('rows '+JSON.stringify(rowstoDelete))
     <>
       <Head>
         <title>
-          Qualifications
+          Calificaciones
         </title>
       </Head>
       <Box
@@ -1000,7 +1000,7 @@ console.log('rows '+JSON.stringify(rowstoDelete))
                 
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Add Qualifications
+                  Agregar Calificaciones
                 </Typography>
                 
               </Stack>

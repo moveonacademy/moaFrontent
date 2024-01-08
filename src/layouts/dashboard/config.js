@@ -64,7 +64,7 @@ export const items = [
   
 ];
 
-export const itemsAdmin = [  
+export const itemsAdminPro = [  
   {
     title: 'Panel de Control',
     path: '/dashboard',
@@ -76,6 +76,22 @@ export const itemsAdmin = [
   },{
     title: 'Permisos Administrador',
     path: '/accessadmin',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },{
+    title: 'Coordinacion',
+    path: '/coordination',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },{
+    title: 'Administracion',
+    path: '/administration',
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
@@ -116,7 +132,177 @@ export const itemsAdmin = [
         <UserIcon />
       </SvgIcon>
     )
+  },{
+    title: 'Asignar Cursos',
+    path: '/asignarCursos',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  }, 
+  {
+    title: 'Salones de clases',
+    path: '/classrooms',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
   },
+  
+  
+  {
+    title: 'Programas de Cursos MO',
+    path: '/coursesMoveOnAdmin',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Cursos',
+    path: '/courses',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Profesores MO',
+    path: '/teachersMoveOnAdmin',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Profesores',
+    path: '/teachers',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Estudiantes',
+    path: '/student',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Asignar Cursos',
+    path: '/addstudent',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Calificaciones',
+    path: '/qualifications',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Pagos',
+    path: '/payments',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Chatbot',
+    path: '/chatbot',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  }
+]
+export const itemsAdmin = [  
+  {
+    title: 'Panel de Sede',
+    path: '/dashboard',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },{
+    title: 'Coordinacion',
+    path: '/coordination',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },{
+    title: 'Administracion',
+    path: '/administration',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },  {
+    title: 'Descargables',
+    path: '/descargables',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Aportes',
+    path: '/aportes',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Unidades',
+    path: '/unities',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Programas de Cursos',
+    path: '/programs',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },{
+    title: 'Asignar Cursos',
+    path: '/asignarCursos',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  }, 
   {
     title: 'Salones de clases',
     path: '/classrooms',

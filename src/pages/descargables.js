@@ -110,7 +110,18 @@ const {Moralis,user}=useMoralis()
       
       const query = new Moralis.Query("Descargables");
  
+      const queryModerator = new Moralis.Query("Moderators");
+      await queryModerator.equalTo("email", user.get("email"));
+      
+      const results = await queryModerator.first();
+      console.log("results "+JSON.stringify(user.get("email")))
 
+      console.log("results "+JSON.stringify(results))
+
+      console.log("results "+results.attributes.typeOfUser)
+if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
+  setModerator(true)
+}
 
       const object = await query.find();
        let courses=[]
@@ -151,6 +162,7 @@ setRowsToDelete(event)
 const [error,setError]=useState('')
 var [avatar,setAvatar]=useState()
 var [imageLoading,setImageLoading]=useState(false)
+const [isModerator, setModerator] = useState(false);
 
 async function handleProgram(){
   setLoading(true)
@@ -492,14 +504,14 @@ const [, setValue] = useState([...fixedOptions]);
         columns={columnsCourse}
         
       />
-         <Button
-                 
+      {isModerator&& <Button
                   
-                 onClick={handleErase}
-                 variant="contained"
-               >
-                 - Delete
-               </Button>
+                  
+                  onClick={handleErase}
+                  variant="contained"
+                >
+                  - Delete
+                </Button>}
     </div>
           </Stack>
           

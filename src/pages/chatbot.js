@@ -41,7 +41,7 @@ const Chatbot = () => {
   const [history, setHistory] = useState([
     {
       role: "assistant",
-      content: "Bienvenido al chatbot de Move on Academy. Siéntete libre de chatear con MOA",
+      content: "Bienvenido al chatbot de Move on Academy. Siéntete libre de chatear con Alice",
     },
   ]);
   if (DID_API.key == '🤫') alert('Please put your API key inside ./api.json and restart.');

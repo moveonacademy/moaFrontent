@@ -75,6 +75,7 @@ const Container2 = styled.div`
 `;
 const Programs = () => {
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+  const [isModerator, setModerator] = useState(false);
 
 const {Moralis,user}=useMoralis()
   const [change, setChange] = useState(false);
@@ -104,7 +105,18 @@ const {Moralis,user}=useMoralis()
       const query = new Moralis.Query("Aportes");
 
 
+      const queryModerator = new Moralis.Query("Moderators");
+      await queryModerator.equalTo("email", user.get("email"));
+      
+      const results = await queryModerator.first();
+      console.log("results "+JSON.stringify(user.get("email")))
 
+      console.log("results "+JSON.stringify(results))
+
+      console.log("results "+results.attributes.typeOfUser)
+if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
+  setModerator(true)
+}
       const object = await query.find();
        let courses=[]
      
@@ -484,15 +496,12 @@ const [, setValue] = useState([...fixedOptions]);
         rows={rowsCourse}
         columns={columnsCourse}
         
-      />
-         <Button
-                 
-                  
-                 onClick={handleErase}
+      />{isModerator&&
+         <Button   onClick={handleErase}
                  variant="contained"
                >
                  - Delete
-               </Button>
+               </Button>}
     </div>
           </Stack>
           

@@ -88,25 +88,12 @@ setTeachers([...studiantes])
   }
   const [change, setChange] = useState(false);
   const [isLoading,setLoading]= useState(false)
-  const [isModerator, setModerator] = useState(false);
 
   const fetchData = async () =>{
 
     try{
       
          
-      const queryModerator = new Moralis.Query("Moderators");
-      await queryModerator.equalTo("email", user.get("email"));
-      
-      const results = await queryModerator.first();
-      console.log("results "+JSON.stringify(user.get("email")))
-
-      console.log("results "+JSON.stringify(results))
-
-      console.log("results "+results.attributes.typeOfUser)
-if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
-  setModerator(true)
-}
   
       const query2 = new Moralis.Query("Programs");
       const query = new Moralis.Query("Courses");
@@ -114,6 +101,7 @@ if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeO
       const query3 = new Moralis.Query("Classrooms");
   
  
+      query3.equalTo("classroomLevel","Kids")
       query.equalTo("supportEmail",user.get("email"))
       query2.equalTo("supportEmail",user.get("email"))
 
@@ -173,18 +161,18 @@ function handleDate(){
 }
 
 async function handleErase(){  
+  setValues({courseName:"",coursePrice:0,courseDescription:"",courseLevel:"",courseCity:"",teacherEmail:"",courseLevel:"",courseLenguage:"",courseRoom:""})  
 
     for(let i=0;i<rowstoDelete.length;i++){
   
       const DataFiles = Moralis.Object.extend('Courses');
       const query = new Moralis.Query(DataFiles);
-      console.log(rowstoDelete[i])
      await query.equalTo("uid",rowstoDelete[i]);
-      const count = await query.first();
+      const count2 = await query.first();
 
       try {
 
-        const file = await query.get(count.id);
+        const file = await query.get(count2.attributes.id);
         await file.destroy();
       } catch (error) {
         console.error('Error deleting file:', error);
@@ -754,12 +742,12 @@ const [programs, setPrograms] = useState([...fixedOptions]);
                   onChange={handleChange}
                   required
                   select
+                  defaultValue={"Kids"}
                   style={{
                     paddingTop:6,
                     marginBottom:10
                   }}
-                  SelectProps={{ native: true }}
-
+                  
                   value={values.courseRoom}
                 >
                   {classrooms.map((option) => (
@@ -935,12 +923,10 @@ const [programs, setPrograms] = useState([...fixedOptions]);
         checkboxSelection
         rows={rowsCourse}
         key={"rowsCourse"}
-        
         columns={columnsCourse}
         onRowSelectionModelChange={handleDelete}
-checkboxSelection
+
       />
-      {isModerator?  
             <Button
                  
                   
@@ -948,8 +934,7 @@ checkboxSelection
                   variant="contained"
                 >
                   - Borrar
-                </Button>:null
-           }
+                </Button>
     </div>
           </Stack>
           

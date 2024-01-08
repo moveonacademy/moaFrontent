@@ -657,7 +657,7 @@ const [levels, setLevels] = useState([]);
         autoPageSize
         columns={columnsCourse}
         
-      />
+      />{isModerator&&
          <Button
                  
                   
@@ -665,7 +665,7 @@ const [levels, setLevels] = useState([]);
                  variant="contained"
                >
                  - Delete
-               </Button>
+               </Button>}
     </div>
           </Stack>
           

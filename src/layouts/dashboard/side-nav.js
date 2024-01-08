@@ -38,6 +38,7 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { itemsTeacher,itemsRegular,itemsStudent, itemsAfterSchool, itemsMoveOnSchool, itemsTeacherMoveOn } from './config';
 import { itemsAdmin } from './config';
 import { itemsManagers } from './config';
+import { itemsAdminPro } from './config';
 
 import {  useEffect, useState } from 'react';
 
@@ -49,7 +50,7 @@ export const SideNav = (props) => {
   const pathname = usePathname();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
  
- const {Moralis,isAuthenticated}=useMoralis()
+ const {Moralis,isAuthenticated,user}=useMoralis()
  const [isManager,setIsManager]=useState(false)
  const [isAdmin,setIsAdmin]=useState(false)
  const [isTeacher,setIsTeacher]=useState(false)
@@ -64,7 +65,6 @@ const [,setEmail]=useState("")
   useEffect(
     () => {
 async function init(){
-  let user=await Moralis.User.current()
 
 if(user.get("email")){
 
@@ -267,7 +267,21 @@ return
               m: 0
             }}
           >
-            {isAdmin?itemsAdmin.map((item) => {
+            {isAdmin?user.get("email")==="golfredo.pf@gmail.com"||user.get("email")==="sistemamoa2023@gmail.com"?itemsAdminPro.map((item) => {
+              const active = item.path ? (pathname === item.path) : false;
+
+              return (
+                <SideNavItem
+                  active={active}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  key={item.title}
+                  path={item.path}
+                  title={item.title}
+                />
+              );
+            }):itemsAdmin.map((item) => {
               const active = item.path ? (pathname === item.path) : false;
 
               return (
