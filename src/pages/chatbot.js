@@ -23,7 +23,7 @@ import user from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Box } from '@mui/system';
 // ... (código anterior)
-const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true })
+const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API, dangerouslyAllowBrowser: true })
 
 const Chatbot = () => {
   'use strict';
