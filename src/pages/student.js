@@ -741,7 +741,7 @@ if(user){
 
   let res= await query.first()
   console.log(JSON.stringify(res))
-  if(res.attributes.typeOfUser==="Manager"||res.attributes.typeOfUser==="admin"){
+  if(res.attributes.typeOfUser==="manager"||res.attributes.typeOfUser==="admin"){
     console.log(JSON.stringify("entrooo"))
 
     setManager(true)
@@ -855,12 +855,12 @@ if(user){
             { !manager?null: <div>
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Agregar Estudiante
+                  Estudiantes
                 </Typography>
                 
               </Stack>
 
-      
+      {manager?<>
               <TextField
                   fullWidth
                   label="Nombre del Estudiante"
@@ -1178,6 +1178,8 @@ if(user){
                   Agregar Estudiante
 
       </LoadingButton>
+
+      </>:null}
                 {error!==""?  <Alert variant="outlined" severity="error">{error}</Alert>:null}
 
               </div>}

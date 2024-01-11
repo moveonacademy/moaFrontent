@@ -57,7 +57,7 @@ console.log("results "+JSON.stringify(user.get("email")))
 console.log("results "+JSON.stringify(results))
 
 console.log("results "+results.attributes.typeOfUser)
-if(results.attributes.typeOfUser.toString()=="admin"){
+if(results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
 setModerator(true)
 }
 
@@ -98,7 +98,7 @@ useEffect(()=>{
   fetchData()
 },[change]);
   
-  const levelsValues = [{label:"MoveOnSchool",value:"moveOnSchool"},{label:"AfterSchool",value:"afterSchool"},{label:"Manager",value:"Manager"},{label:"Casa Matriz",value:"admin"}]
+  const levelsValues = [{label:"MoveOnSchool",value:"moveOnSchool"},{label:"AfterSchool",value:"afterSchool"},{label:"Atencion al cliente",value:"customerSupport"},{label:"Gerente",value:"manager"},{label:"Casa Matriz",value:"admin"}]
 
   const [values, setValues] = useState({
     sedeName:"",

@@ -20,7 +20,10 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-inline-comments */
 /* eslint-disable no-inline-comments */
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useCallback, useState,useEffect } from 'react';
 import Head from 'next/head';
 import Save from '@mui/icons-material/Save';
@@ -38,10 +41,30 @@ import {
   TextField,
 } from '@mui/material';
 
+const top100Films = [
+  {
+    value: "1",
+    label: "1 horas academicas",
+  },
+  {
+    value: "2",
+    label: "2 horas academicas",
+  },
+  {
+    value: "3",
+    label: "3 horas academicas",
+  },
+  {
+    value: "4",
+    label: "4 horas academicas",
+  },
+];
 
 const Page = () => {
   
   const [values, setValues] = useState({
+    
+    classDuration: '',
     courseName: '',
     programName: '',
     unityName: '',
@@ -604,6 +627,22 @@ return
     return
   } 
   
+  if(values.classDuration!==""){
+    res.set("classDuration",values.classDuration) 
+  } else {  setLoading(false)
+
+    setError("Falta la Duracion ")
+    return
+  } 
+  
+  if(values.dateClass!==""){
+    res.set("dateClass",values.dateClass) 
+  } else {  
+    setLoading(false)
+
+    setError("Falta la Fecha de la clase ")
+    return
+  } 
   if(values.unityName!==""){
     res.set("unityName",values.unityName) 
   } else {  setLoading(false)
@@ -966,6 +1005,7 @@ console.log('rows '+JSON.stringify(rowstoDelete))
     setChange(!change)
   
   }
+  const [dateClass, setDateClass] = useState(null);
 
   const handleDelete = useCallback(
     (event) => {
@@ -997,12 +1037,42 @@ console.log('rows '+JSON.stringify(rowstoDelete))
               spacing={4}
             >
               <div>
-                
+                  
               <Stack spacing={1}>
                 <Typography variant="h4">
                   Agregar Calificaciones
                 </Typography>
-                
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateTimePicker
+                    label="Fecha de la clase"
+                    value={dateClass}
+                    onChange={(newValue) => setDateClass(newValue)}
+                  />{" "}
+                </LocalizationProvider>
+                <TextField
+                  fullWidth
+                  label="Duracion de la clase"
+                  name="classDuration"
+                  onChange={handleChange}
+                  required
+                  select
+                  style={{
+                    paddingTop:6,
+                    marginBottom:10
+                  }}
+                  SelectProps={{ native: true }}
+                  value={values.classDuration}
+                >
+                  {[...top100Films].map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+              
               </Stack>
                   <TextField
                   fullWidth

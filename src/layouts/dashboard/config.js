@@ -81,22 +81,6 @@ export const itemsAdminPro = [
         <ChartBarIcon />
       </SvgIcon>
     )
-  },{
-    title: 'Coordinacion',
-    path: '/coordination',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    )
-  },{
-    title: 'Administracion',
-    path: '/administration',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    )
   },  {
     title: 'Descargables',
     path: '/descargables',
@@ -481,6 +465,16 @@ export const itemsStudent = [
 ];
 
 
+export const chatbot = [
+  {
+    title: 'Chatbot',
+    path: '/chatbot',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  }]
 export const itemsManagers = [
  {
     title: 'Cursos',
@@ -529,32 +523,24 @@ export const itemsManagers = [
     )
   },
   {
-    title: 'Permiso de Profesores',
-    path: '/access',
+    title: 'Coordinacion',
+    path: '/coordination',
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
     )
-  },  
+  },
+  
   {
-    title: 'Support Permissions',
-    path: '/access',
+    title: 'Pagos',
+    path: '/payments',
     icon: (
       <SvgIcon fontSize="small">
-        <ChartBarIcon />
+        <UserPlusIcon />
       </SvgIcon>
     )
-  },    
-  {
-    title: 'Administration Permission',
-    path: '/access',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    )
-  },  
+  },
 ];
 
 

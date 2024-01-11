@@ -104,7 +104,7 @@ setTeachers([...studiantes])
       console.log("results "+JSON.stringify(results))
 
       console.log("results "+results.attributes.typeOfUser)
-if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
+if(results.attributes.typeOfUser.toString().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
   setModerator(true)
 }
   

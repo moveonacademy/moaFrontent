@@ -72,7 +72,7 @@ const [isLoading,setLoading]= useState(false)
       query.limit(1000)
 
   console.log(JSON.stringify(res2))
-  if(res2.attributes.typeOfUser==="Manager"||res2.attributes.typeOfUser==="admin"){
+  if(res2.attributes.typeOfUser==="manager"||res2.attributes.typeOfUser==="admin"){
     console.log(JSON.stringify("entrooo"))
 
   } else{

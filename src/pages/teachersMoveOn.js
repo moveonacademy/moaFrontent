@@ -64,6 +64,13 @@ const Page = () => {
       const query2 = new Moralis.Query("TeachersMoveOn");
       await query2.equalTo("supportEmail", user.get("email"));
 
+      const queryModerator = new Moralis.Query("Moderators");
+      await queryModerator.equalTo("email", user.get("email"));
+      
+      const results = await queryModerator.first();
+if(results.attributes.typeOfUser.toString().toLowerCase().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
+  setModerator(true)
+}
       const object = await query2.find();
       let studiantes = [];
       for (let i = 0; i < object.length; i++) {
@@ -85,6 +92,7 @@ const Page = () => {
   const [error, setError] = useState("");
   const [stateID, setStateID] = useState(null);
 
+  const [isModerator, setModerator] = useState(false);
   const handleCellClick = useCallback(async (event) => {
     const query = new Moralis.Query("TeachersMoveOn");
     query.equalTo("uid", event.id);
@@ -506,7 +514,10 @@ const Page = () => {
                 onCellDoubleClick={handleCellClick}
               />
              
-            
+             {isModerator?   <Button onClick={handleErase} variant="contained">
+              - Borrar
+            </Button>:null
+           }
             </div>
           </Stack>
         </Container>

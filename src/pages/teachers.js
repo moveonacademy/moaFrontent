@@ -72,7 +72,7 @@ const Page = () => {
       await queryModerator.equalTo("email", user.get("email"));
       
       const results = await queryModerator.first();
-if(results.attributes.typeOfUser.toString()=="Manager"||results.attributes.typeOfUser.toString()=="admin"){
+if(results.attributes.typeOfUser.toString().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
   setModerator(true)
 }
       const object = await query2.find();

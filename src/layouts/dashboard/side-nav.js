@@ -142,7 +142,7 @@ if(user.get("email")){
     setIsTeacher(false)
 return
   }
-  if(moderator?.attributes.typeOfUser==="Manager"){
+  if(moderator?.attributes.typeOfUser==="customerSupport"){
     console.log(moderator.attributes.typeOfUser)
 
     setIsStudent(false)
