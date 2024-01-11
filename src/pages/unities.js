@@ -60,7 +60,6 @@ const {Moralis,user}=useMoralis()
       const query = new Moralis.Query("Unities");
       query.limit(1000)
 
-      query.equalTo("supportEmail",user.get("email"))
       const queryModerator = new Moralis.Query("Moderators");
       await queryModerator.equalTo("email", user.get("email"));
       
@@ -71,7 +70,13 @@ const {Moralis,user}=useMoralis()
 
       console.log("results "+results.attributes.typeOfUser)
 if(results.attributes.typeOfUser.toString().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
+
   setModerator(true)
+}else{
+  query.equalTo("supportEmail",user.get("email"))
+
+  setModerator(false)
+
 }
   
       const object = await query.find();
