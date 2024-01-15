@@ -291,7 +291,7 @@ return
               m: 0
             }}
           >
-            {isAdmin?user.get("email")==="golfredo.pf@gmail.com"||user.get("email")==="sistemamoa2023@gmail.com"?itemsAdminPro.map((item) => {
+            {isAdmin?user?.get("email")==="golfredo.pf@gmail.com"||user.get("email")==="sistemamoa2023@gmail.com"?itemsAdminPro.map((item) => {
               const active = item.path ? (pathname === item.path) : false;
 
               return (
