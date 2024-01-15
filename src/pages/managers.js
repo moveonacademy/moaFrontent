@@ -376,7 +376,7 @@ if(user){
     <>
       <Head>
         <title>
-           Estudiantes
+           Gerentes
         </title>
       </Head>
      

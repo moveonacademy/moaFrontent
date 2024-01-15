@@ -74,6 +74,14 @@ export const itemsAdminPro = [
       </SvgIcon>
     )
   },{
+    title: 'Agregar Gerentes',//cambiar lenguages por grados
+    path: '/managers',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },{
     title: 'Permisos Administrador',
     path: '/accessadmin',
     icon: (
@@ -658,15 +666,7 @@ export const itemsSupport = [
 
 export const itemsMoveOnSchool = [
  
-  {
-    title: 'Agregar Gerentes',//cambiar lenguages por grados
-    path: '/managers',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserIcon />
-      </SvgIcon>
-    )
-  },
+  
   {
     title: 'Agregar Profesores',//cambiar lenguages por grados
     path: '/teachersMoveOn',
