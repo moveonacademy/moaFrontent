@@ -120,9 +120,9 @@ console.log("text")
   
   const managerquery = await query5.first();
   const query6 = new Moralis.Query("CustomerSupport");
-  await query6.equalTo("email",user.get("email"))
+  await query6.equalTo("customerSupportEmail",user.get("email"))
   
-  const supportquery = await query5.first();
+  const supportquery = await query6.first();
   
   console.log("managermanager "+JSON.stringify(managerquery))
   if(managerquery){
@@ -166,7 +166,6 @@ console.log("text")
 return
   }
   if(supportquery){
-    console.log(moderator.attributes.typeOfUser)
 
     setIsStudent(false)
     setIsRegular(false)
