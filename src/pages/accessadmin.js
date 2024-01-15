@@ -98,7 +98,7 @@ useEffect(()=>{
   fetchData()
 },[change]);
   
-  const levelsValues = [{label:"MoveOnSchool",value:"moveOnSchool"},{label:"AfterSchool",value:"afterSchool"},{label:"Atencion al cliente",value:"customerSupport"},{label:"Gerente",value:"manager"},{label:"Casa Matriz",value:"admin"}]
+  const levelsValues = [{label:"MoveOnSchool",value:"moveOnSchool"},{label:"AfterSchool",value:"afterSchool"},{label:"Casa Matriz",value:"admin"}]
 
   const [values, setValues] = useState({
     sedeName:"",

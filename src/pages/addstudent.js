@@ -729,7 +729,7 @@ if(user){
 
   let res= await query.first()
   console.log(JSON.stringify(res))
-  if(res.attributes.typeOfUser==="manager"||res.attributes.typeOfUser==="admin"){
+  if(res.attributes.typeOfUser==="manager"||res.attributes.typeOfUser==="admin"||res.attributes.typeOfUser==="moveOnSchool"){
     console.log(JSON.stringify("entrooo"))
 
     setManager(true)

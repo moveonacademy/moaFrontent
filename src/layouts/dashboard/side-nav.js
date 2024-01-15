@@ -35,7 +35,7 @@ import {
 } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
-import { itemsTeacher,itemsRegular,itemsStudent, itemsAfterSchool, itemsMoveOnSchool, itemsTeacherMoveOn } from './config';
+import { itemsTeacher,itemsRegular,itemsStudent,itemsManagerMoveOn, itemsAfterSchool, itemsMoveOnSchool, itemsTeacherMoveOn } from './config';
 import { itemsAdmin } from './config';
 import { itemsManagers } from './config';
 import { itemsAdminPro } from './config';
@@ -55,6 +55,7 @@ export const SideNav = (props) => {
  const [isAdmin,setIsAdmin]=useState(false)
  const [isTeacher,setIsTeacher]=useState(false)
  const [isTeacherMoveOn,setIsTeacherMoveOn]=useState(false)
+ const [isSupport,setIsSupport]=useState(false)
 
  const [isStudent,setIsStudent]=useState(false)
  const [isAfterSchool,setIsAfterSchool]=useState(false)
@@ -65,9 +66,10 @@ const [,setEmail]=useState("")
   useEffect(
     () => {
 async function init(){
+  let user=await Moralis.User.current()
 
 if(user.get("email")){
-
+console.log("text")
   setEmail(user.get("email"))
   const query = new Moralis.Query("Moderators");
    query.equalTo("email",user.get("email"))
@@ -89,9 +91,11 @@ if(user.get("email")){
   
   const query2 = new Moralis.Query("Teachers");
   await query2.equalTo("teacherEmail",user.get("email"))
-  
+  console.log("text2")
+
   const teacher = await query2.first();
   if(teacher){
+    console.log("text3")
 
     setIsTeacher(true)
     
@@ -99,26 +103,47 @@ if(user.get("email")){
     setIsManager(false)
     return
   }
-   
+
   const query22 = new Moralis.Query("TeachersMoveOn");
   await query22.equalTo("teacherEmail",user.get("email"))
-  
-  const teacher22 = await query22.first();
-  if(teacher22){
 
-    setIsTeacher(false)
-    
-    setIsStudent(false)
-    setIsManager(false)
-    setIsTeacherMoveOn(true)
-    return
-  }
-   
+  const teacher22 = await query22.first();
+ 
+
   const query3 = new Moralis.Query("Students");
   await query3.equalTo("studentEmail",user.get("email"))
   
   const student = await query3.first();
 
+  const query5 = new Moralis.Query("Managers");
+  await query5.equalTo("managerEmail",user.get("email"))
+  
+  const managerquery = await query5.first();
+  const query6 = new Moralis.Query("CustomerSupport");
+  await query6.equalTo("email",user.get("email"))
+  
+  const supportquery = await query5.first();
+  
+  console.log("managermanager "+JSON.stringify(managerquery))
+  if(managerquery){
+
+    setIsStudent(false)
+    setIsRegular(false)
+
+    setIsTeacher(false)
+    setIsManager(true)
+    return
+  }
+  if(teacher22){
+
+    setIsTeacher(false)
+    console.log("text3")
+
+    setIsStudent(false)
+    setIsManager(false)
+    setIsTeacherMoveOn(true)
+    return
+  }
   if(student){
 
     setIsStudent(true)
@@ -128,8 +153,6 @@ if(user.get("email")){
     setIsManager(false)
     return
   }
-  console.log("typeOfUser"+JSON.stringify(moderator?.attributes.typeOfUser))
-
   if(moderator?.attributes.typeOfUser==="moveOnSchool"){
 
     setIsStudent(false)
@@ -142,13 +165,14 @@ if(user.get("email")){
     setIsTeacher(false)
 return
   }
-  if(moderator?.attributes.typeOfUser==="customerSupport"){
+  if(supportquery){
     console.log(moderator.attributes.typeOfUser)
 
     setIsStudent(false)
     setIsRegular(false)
+    setIsSupport(true)
 
-    setIsManager(true)
+    setIsManager(false)
     setIsTeacher(false)
 return
   }
@@ -295,7 +319,7 @@ return
                   title={item.title}
                 />
               );
-            }):isManager?itemsManagers.map((item) => {
+            }):isManager?itemsManagerMoveOn.map((item) => {
               const active = item.path ? (pathname === item.path) : false;
 
               return (

@@ -609,26 +609,7 @@ export const itemsAfterSchool = [
 ];
 
 export const itemsSupport = [ 
-    
-  {
-    title: 'Administration Permission',
-    path: '/access',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    )
-  },  
-    
-  {
-    title: 'Panel de Control',
-    path: '/dashboardMoveOnSchool',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserIcon />
-      </SvgIcon>
-    )
-  },
+ 
   {
     title: 'Estudiantes',
     path: '/student',
@@ -677,7 +658,15 @@ export const itemsSupport = [
 
 export const itemsMoveOnSchool = [
  
-  
+  {
+    title: 'Agregar Gerentes',//cambiar lenguages por grados
+    path: '/managers',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
   {
     title: 'Agregar Profesores',//cambiar lenguages por grados
     path: '/teachersMoveOn',
@@ -731,6 +720,29 @@ export const itemsMoveOnSchool = [
   }
 ];
 
+export const itemsManagerMoveOn = [
+ 
+    
+  {
+    title: 'Dashboard Gerente',
+    path: '/teacherDasboardMoveOn',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Agregar Atencion al cliente',
+    path: '/customerSupport',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  
+];
 
 export const itemsTeacherMoveOn = [
  
