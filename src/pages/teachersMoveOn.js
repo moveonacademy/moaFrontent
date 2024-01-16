@@ -68,10 +68,11 @@ const Page = () => {
       await queryModerator.equalTo("email", user.get("email"));
       
       const results = await queryModerator.first();
-if(results.attributes.typeOfUser.toString().toLowerCase().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
-  setModerator(true)
-}
+
       const object = await query2.find();
+      if(results){
+        setModerator(true)
+      }
       let studiantes = [];
       for (let i = 0; i < object.length; i++) {
         studiantes = [

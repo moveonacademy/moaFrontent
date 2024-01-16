@@ -71,11 +71,12 @@ async function init(){
 if(user.get("email")){
 console.log("text")
   setEmail(user.get("email"))
+  
   const query = new Moralis.Query("Moderators");
    query.equalTo("email",user.get("email"))
-
+itemsManagerMoveOn
   const moderator = await query.first();
-
+console.log(JSON.stringify(user.get("email")))
   if(user.get("email")==="sistemamoa2023@gmail.com"){
     
     setIsAdmin(true)

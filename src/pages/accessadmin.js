@@ -138,7 +138,7 @@ useEffect(()=>{
         }
         if(values.email!==""){
 
-          res.set("email",values.email)
+          res.set("email",values.email.toLowerCase())
         }   else{
           setError("Falta el correo")
           setLoading(false)
@@ -178,7 +178,7 @@ useEffect(()=>{
           return
         }
 
-        teacher.set("email",values.email)
+        teacher.set("email",values.email.toLowerCase())
         teacher.set("sedeName",values.sedeName)
 
         if(values.city===""){
