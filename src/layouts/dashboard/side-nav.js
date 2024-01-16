@@ -39,7 +39,7 @@ import { itemsTeacher,itemsRegular,itemsStudent,itemsManagerMoveOn, itemsAfterSc
 import { itemsAdmin } from './config';
 import { itemsManagers } from './config';
 import { itemsAdminPro } from './config';
-
+import { itemsSupport } from './config';
 import {  useEffect, useState } from 'react';
 
 import { SideNavItem } from './side-nav-item';
