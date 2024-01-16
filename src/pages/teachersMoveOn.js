@@ -65,10 +65,13 @@ const Page = () => {
       await query2.equalTo("supportEmail", user.get("email"));
 
       const queryModerator = new Moralis.Query("Moderators");
-      await queryModerator.equalTo("email", user.get("email"));
-      
-      const results = await queryModerator.first();
+       queryModerator.equalTo("email", user.get("email"));
+      console.log(JSON.stringify(user.get("email")))
+      console.log(JSON.stringify(user.get("email")))
+      setModerator(true)
 
+      const results = await queryModerator.first();
+console.log(JSON.stringify("results "+results))
       const object = await query2.find();
       if(results){
         setModerator(true)

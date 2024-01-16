@@ -55,11 +55,19 @@ const Page = () => {
  
 
 
+  const [isModerator, setModerator] = useState(false);
 
   const fetchData = async () => {
     try {
       
       let user=await Moralis.User.current()
+      const queryModerator = new Moralis.Query("Moderators");
+      queryModerator.equalTo("email", user.get("email"));
+
+     const results = await queryModerator.first();
+     if(results){
+       setModerator(true)
+     }
 
       const query2 = new Moralis.Query("TeachersMoveOn");
 
@@ -505,7 +513,10 @@ const Page = () => {
                 onCellDoubleClick={handleCellClick}
               />
              
-            
+             {isModerator?   <Button onClick={handleErase} variant="contained">
+              - Borrar
+            </Button>:null
+           }
             </div>
           </Stack>
         </Container>
