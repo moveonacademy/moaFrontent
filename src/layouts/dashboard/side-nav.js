@@ -417,6 +417,20 @@ return
                   title={item.title}
                 />
               );
+            }):isSupport?itemsSupport.map((item) => {
+              const active = item.path ? (pathname === item.path) : false;
+
+              return (
+                <SideNavItem
+                  active={active}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  key={item.title}
+                  path={item.path}
+                  title={item.title}
+                />
+              );
             }):[].map((item) => {
               const active = item.path ? (pathname === item.path) : false;
 
