@@ -35,11 +35,11 @@ import {
 } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
-import { itemsTeacher,itemsRegular,itemsStudent,itemsManagerMoveOn, itemsAfterSchool, itemsMoveOnSchool, itemsTeacherMoveOn } from './config';
+import { itemsTeacher,itemsRegular,itemsStudent,itemsManagerMoveOn, itemsAfterSchool, itemsMoveOnSchool, itemsTeacherMoveOn, itemsChatbot } from './config';
 import { itemsAdmin } from './config';
 import { itemsManagers } from './config';
 import { itemsAdminPro } from './config';
-
+import { itemsSupport } from './config';
 import {  useEffect, useState } from 'react';
 
 import { SideNavItem } from './side-nav-item';
@@ -56,6 +56,7 @@ export const SideNav = (props) => {
  const [isTeacher,setIsTeacher]=useState(false)
  const [isTeacherMoveOn,setIsTeacherMoveOn]=useState(false)
  const [isSupport,setIsSupport]=useState(false)
+ const [isChatbot,isSetChatbot]=useState(false)
 
  const [isStudent,setIsStudent]=useState(false)
  const [isAfterSchool,setIsAfterSchool]=useState(false)
@@ -77,6 +78,13 @@ console.log("text")
 itemsManagerMoveOn
   const moderator = await query.first();
 console.log(JSON.stringify(user.get("email")))
+
+if(user.get("email").toLowerCase()==="moachatbot@gmail.com"){
+    
+  isSetChatbot(true)
+  return
+}
+
   if(user.get("email")==="sistemamoa2023@gmail.com"){
     
     setIsAdmin(true)
@@ -404,6 +412,34 @@ return
                 />
               );
             }):isTeacherMoveOn?itemsTeacherMoveOn.map((item) => {
+              const active = item.path ? (pathname === item.path) : false;
+
+              return (
+                <SideNavItem
+                  active={active}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  key={item.title}
+                  path={item.path}
+                  title={item.title}
+                />
+              );
+            }):isSupport?itemsSupport.map((item) => {
+              const active = item.path ? (pathname === item.path) : false;
+
+              return (
+                <SideNavItem
+                  active={active}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  key={item.title}
+                  path={item.path}
+                  title={item.title}
+                />
+              );
+            }):isChatbot?itemsChatbot.map((item) => {
               const active = item.path ? (pathname === item.path) : false;
 
               return (

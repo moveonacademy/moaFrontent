@@ -48,6 +48,8 @@ const Chatbot = () => {
   const [isLoadingAudio, setLoadingAudio] = useState(false);
   const recorderControls = useAudioRecorder()
   const addAudioElement = async(blob) => {
+    try{
+      
     const file = new File([blob], "input.wav", { type: "audio/wav" });
     
         const completion = await openai.audio.transcriptions.create({
@@ -100,6 +102,10 @@ const Chatbot = () => {
         'session_id': sessionId
       })
     });
+    
+  }catch(e){
+    console.log(e.message)
+  }
       };
   const [values, setValues] = useState({
     userResponse: "",

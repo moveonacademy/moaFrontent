@@ -66,9 +66,6 @@ const Page = () => {
 
       const queryModerator = new Moralis.Query("Moderators");
        queryModerator.equalTo("email", user.get("email"));
-      console.log(JSON.stringify(user.get("email")))
-      console.log(JSON.stringify(user.get("email")))
-      setModerator(true)
 
       const results = await queryModerator.first();
 console.log(JSON.stringify("results "+results))

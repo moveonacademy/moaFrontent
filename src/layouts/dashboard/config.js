@@ -744,6 +744,19 @@ export const itemsManagerMoveOn = [
   
 ];
 
+export const itemsChatbot = [
+ 
+  {
+    title: 'Chatbot',
+    path: '/chatbot',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )},
+  
+];
+
 export const itemsTeacherMoveOn = [
  
     
