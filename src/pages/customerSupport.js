@@ -293,7 +293,7 @@ setRowsToDelete(event)
   []
 );
 const [change, setChange] = useState(false);
-const [manager, setManager] = useState(false);
+const [manager, setManager] = useState(true);
 
   useEffect(()=>{
     async function init(){
