@@ -100,11 +100,9 @@ if(user.get("email").toLowerCase()==="moachatbot@gmail.com"){
   
   const query2 = new Moralis.Query("Teachers");
   await query2.equalTo("teacherEmail",user.get("email"))
-  console.log("text2")
 
   const teacher = await query2.first();
   if(teacher){
-    console.log("text3")
 
     setIsTeacher(true)
     
