@@ -736,13 +736,15 @@ const [manager, setManager] = useState(false);
 
 if(user){
 
+  const query2 = new Moralis.Query("CustomerSupport");
+  query2.equalTo("customerSupportEmail",user.get("email"))
   const query = new Moralis.Query("Moderators");
   query.equalTo("email",user.get("email"))
+  let res2= await query2.first()
 
   let res= await query.first()
   console.log(JSON.stringify(res))
-  if(res.attributes.typeOfUser==="manager"||res.attributes.typeOfUser==="admin"){
-    console.log(JSON.stringify("entrooo"))
+  if(res2||(res)){
 
     setManager(true)
   }

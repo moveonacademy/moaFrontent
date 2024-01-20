@@ -72,7 +72,12 @@ const Page = () => {
       await queryModerator.equalTo("email", user.get("email"));
       
       const results = await queryModerator.first();
-if(results.attributes.typeOfUser.toString().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin"){
+      const querySupport = new Moralis.Query("CustomerSupport");
+      await querySupport.equalTo("customerSupportEmail", user.get("email"));
+      
+      const results2 = await querySupport.first();
+
+if(results2||(results.attributes.typeOfUser.toString().toLowerCase()=="manager"||results.attributes.typeOfUser.toString().toLowerCase()=="admin")){
   setModerator(true)
 }
       const object = await query2.find();

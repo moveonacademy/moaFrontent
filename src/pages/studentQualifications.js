@@ -91,9 +91,18 @@ const Page = () => {
             const query = new Moralis.Query("Courses");
         const query3 = new Moralis.Query("Programs");
         const query2 = new Moralis.Query("Students");
+
+        
+      const querySupport = new Moralis.Query("CustomerSupport");
+      await querySupport.equalTo("customerSupportEmail", user.get("email"));
+      
+      const results2 = await querySupport.first();
+      if(!results2){
         await query.equalTo("teacherEmail",user.get("email"))     
 
 
+      }
+   
       let cursos=[]
        let students=[]
        let programas=[]
@@ -263,7 +272,7 @@ const handleCellClick = useCallback(
                 
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Mis calificaciones
+                  Calificaciones
                 </Typography>
                 
               </Stack>

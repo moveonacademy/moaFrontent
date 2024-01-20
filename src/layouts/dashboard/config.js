@@ -627,8 +627,8 @@ export const itemsSupport = [
       </SvgIcon>
     )
   },  {
-    title: 'Permiso de Profesores',
-    path: '/access',
+    title: ' Profesores',
+    path: '/teachers',
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
@@ -636,7 +636,7 @@ export const itemsSupport = [
     )
   },//ver solo       
   {
-    title: 'Estudiantes Calificaciones',
+    title: 'Calificaciones',
     path: '/studentQualifications',
     icon: (
       <SvgIcon fontSize="small">
@@ -722,7 +722,6 @@ export const itemsMoveOnSchool = [
 
 export const itemsManagerMoveOn = [
  
-    
   {
     title: 'Dashboard Gerente',
     path: '/teacherDasboardMoveOn',
@@ -741,11 +740,9 @@ export const itemsManagerMoveOn = [
       </SvgIcon>
     )
   },
-  
 ];
 
 export const itemsChatbot = [
- 
   {
     title: 'Chatbot',
     path: '/chatbot',
@@ -758,8 +755,6 @@ export const itemsChatbot = [
 ];
 
 export const itemsTeacherMoveOn = [
- 
-    
     {
       title: 'Consultar Programas',
       path: '/teacherDasboardMoveOn',
@@ -769,8 +764,6 @@ export const itemsTeacherMoveOn = [
         </SvgIcon>
       )
     },
-    
-    
 ];
 
 
