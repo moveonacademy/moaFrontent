@@ -740,6 +740,25 @@ export const itemsManagerMoveOn = [
       </SvgIcon>
     )
   },
+  {
+    title: 'Coordinadores',
+    path: '/coordinators',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  
+  {
+    title: 'Administradores',
+    path: '/administrators',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
 ];
 
 export const itemsChatbot = [
