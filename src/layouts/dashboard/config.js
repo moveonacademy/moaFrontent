@@ -662,6 +662,15 @@ export const itemsSupport = [
       </SvgIcon>
     )
   },
+  {
+    title: 'Pagos',
+    path: '/payments',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
 ];
 
 export const itemsMoveOnSchool = [
