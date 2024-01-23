@@ -742,7 +742,7 @@ export const itemsManagerMoveOn = [
   },
   {
     title: 'Coordinadores',
-    path: '/coordinators',
+    path: '/coordination',
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
@@ -752,7 +752,7 @@ export const itemsManagerMoveOn = [
   
   {
     title: 'Administradores',
-    path: '/administrators',
+    path: '/administration',
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
