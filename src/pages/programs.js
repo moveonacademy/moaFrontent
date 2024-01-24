@@ -81,7 +81,7 @@ const Container2 = styled.div`
   transition: border .24s ease-in-out;
 `;
 const Programs = () => {
-  const client = new NFTStorage({ token: process.env.NFT_UPLOAD })
+  const client = new NFTStorage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEQ2QzI1OTAzMDQ3MDllMkY5Y0NFNWQ5MUY2ZmEyMDI0NzJDMDk0ODgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5NzQ4NDY5MzU1NiwibmFtZSI6Im1vdmVvbkFjYWRlbXkifQ.byeBBZUvPTD-sVKRvby5cOlgY_vx2-W13jtIbj--hCM"})
 
 const {Moralis,user:userInfo}=useMoralis()
   const [change, setChange] = useState(false);
