@@ -147,7 +147,6 @@ if(userInfo.get("email")){
        let res=[]
        
       for(let i=0;i<object2.length;i++){
-        console.log(" testest "+object2[i].attributes.unityName)
         res=[ ...res,{
           label:object2[i].attributes.unityName,
           value:object2[i].attributes.uid
