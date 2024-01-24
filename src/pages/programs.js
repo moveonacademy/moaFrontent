@@ -81,7 +81,7 @@ const Container2 = styled.div`
   transition: border .24s ease-in-out;
 `;
 const Programs = () => {
-  const client = new NFTStorage({ token: process.env.config.NFT_UPLOAD })
+  const client = new NFTStorage({ token: process.env.NFT_UPLOAD })
 
 const {Moralis,user:userInfo}=useMoralis()
   const [change, setChange] = useState(false);
