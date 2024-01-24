@@ -20,16 +20,13 @@ import { async } from 'react-cloudinary-upload-widget';
 import OpenAI from 'openai';
 import { CircularProgress, Avatar,Stack, Typography } from '@mui/material';
 import user from '@mui/icons-material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Box } from '@mui/system';
-// ... (código anterior)
-const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API })
 
+// ... (código anterior)
 const Chatbot = () => {
   'use strict';
   const selector = useCallback(voices => [...voices].find(v => v.lang === 'zh-HK'), []);
   const { Moralis } = useMoralis();
-
 
   const handleChange = useCallback(
     async (event) => {
@@ -51,18 +48,14 @@ const Chatbot = () => {
     try{
       
     const file = new File([blob], "input.wav", { type: "audio/wav" });
-    
-        const completion = await openai.audio.transcriptions.create({
-          file: file,
-          model: "whisper-1",
-      });
-      let newHistory = [...history, { role: "user", content: completion.text}];
+    console.log(JSON.stringify(job))
+
+      let newHistory = [...history, { role: "user", content: "hola"}];
       
       let res=await Moralis.Cloud.run(
         "chatgpt",
         { history:newHistory, userResponse:values.userResponse }
       );
-     
     setHistory([...newHistory, {role:"assistant",content:res}])
     const talkResponse = await fetchWithRetries(`${DID_API.url}/talks/streams/${streamId}`, {
       method: 'POST',

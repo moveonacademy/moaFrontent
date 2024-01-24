@@ -2317,6 +2317,69 @@
     read-package-json-fast "^3.0.0"
     which "^4.0.0"
 
+"@picovoice/leopard-node@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@picovoice/leopard-node/-/leopard-node-2.0.1.tgz"
+  integrity sha512-eVHTlgE2nKBBi1t4uZgnU7jAkWTDRvwZJ2JDcw/9oQUUo3LhDjM8zLHJXL4hgKJrspEVOUi+jrj4E5XBBMfJZg==
+
+"@picovoice/leopard-react@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@picovoice/leopard-react/-/leopard-react-2.0.2.tgz"
+  integrity sha512-UxbgXK49SeJ6jmSGsitFJtG3tiKm7N6v86D2UiWjwDN+RIrAu7pC9DpO5TZtFdl99hiCu7Ju/dCkC11GS6rwGg==
+  dependencies:
+    "@picovoice/leopard-web" "=2.0.1"
+
+"@picovoice/leopard-web@=2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@picovoice/leopard-web/-/leopard-web-2.0.1.tgz"
+  integrity sha512-U4Xqy22wxFL1VjBzXRK333Gu31ujpN/NcUKJsH4Pq40HddgvXVB23ZbHDAiFnEQp+ZLOUlg3hPLJXM9pj9kEHg==
+  dependencies:
+    "@picovoice/web-utils" "=1.3.1"
+
+"@picovoice/picovoice-react@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/@picovoice/picovoice-react/-/picovoice-react-3.0.3.tgz"
+  integrity sha512-nkL1Cs4lWl+FTy+PnwGNXaUXiRKdSWoxJFy9jF2aA73NqPOCN7OnNC/7U1MfgNlaFlCYj76NJVBANLKIl5q0Kw==
+  dependencies:
+    "@picovoice/picovoice-web" "=3.0.3"
+
+"@picovoice/picovoice-web@=3.0.3":
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/@picovoice/picovoice-web/-/picovoice-web-3.0.3.tgz"
+  integrity sha512-m8EBs/U0EBh8dBWKqxk+wCkJfn2w/+A1a08opxuvHZccZJzEA6Lm7rQQmJDS2ApvD+wH50RAHT/q7Mt7L7o5Yw==
+  dependencies:
+    "@picovoice/porcupine-web" "=3.0.3"
+    "@picovoice/rhino-web" "=3.0.3"
+    "@picovoice/web-utils" "=1.3.1"
+
+"@picovoice/porcupine-web@=3.0.3":
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/@picovoice/porcupine-web/-/porcupine-web-3.0.3.tgz"
+  integrity sha512-xVFR0TO0FwM/pumxMxevP550yj9JFlmJuaFgT0CHXjtsInqBrBTZHdJDoj8f5qTHZ4khffh1lW4kiPYf2g8dBQ==
+  dependencies:
+    "@picovoice/web-utils" "=1.3.1"
+
+"@picovoice/rhino-web@=3.0.3":
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/@picovoice/rhino-web/-/rhino-web-3.0.3.tgz"
+  integrity sha512-OB4/BFX8GtwHXUJuNucAX5nxkQnNUbIYiqO1nDt7GYWVOvXvgLp/H7xYi4EuqckgNjYKSp+9RQVcnhnfix355w==
+  dependencies:
+    "@picovoice/web-utils" "=1.3.1"
+
+"@picovoice/web-utils@=1.3.1":
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/@picovoice/web-utils/-/web-utils-1.3.1.tgz"
+  integrity sha512-jcDqdULtTm+yJrnHDjg64hARup+Z4wNkYuXHNx6EM8+qZkweBq9UA6XJrHAlUkPnlkso4JWjaIKhz3x8vZcd3g==
+  dependencies:
+    commander "^9.2.0"
+
+"@picovoice/web-voice-processor@^4.0.8":
+  version "4.0.8"
+  resolved "https://registry.npmjs.org/@picovoice/web-voice-processor/-/web-voice-processor-4.0.8.tgz"
+  integrity sha512-/OSHn8YKniMo0jP5EwGimLOxvLQl/Yx4Hs+LydNmoSu4hfBrDdzhhfhB79118uDiK4aUUKx2A/RAD9TG0mQ/ng==
+  dependencies:
+    "@picovoice/web-utils" "=1.3.1"
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"
@@ -3121,6 +3184,13 @@ axe-core@^4.6.2:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.6.3.tgz"
   integrity sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==
 
+axios@^0.21.1:
+  version "0.21.4"
+  resolved "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
 axios@^1.3.4, axios@^1.4.0, axios@^1.5.1:
   version "1.5.1"
   resolved "https://registry.npmjs.org/axios/-/axios-1.5.1.tgz"
@@ -3707,7 +3777,7 @@ columnify@^1.6.0:
     strip-ansi "^6.0.1"
     wcwidth "^1.0.0"
 
-combined-stream@^1.0.8:
+combined-stream@^1.0.6, combined-stream@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
@@ -3723,6 +3793,11 @@ commander@^4.0.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
+
+commander@^9.2.0:
+  version "9.5.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-9.5.0.tgz"
+  integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==
 
 common-ancestor-path@^1.0.1:
   version "1.0.1"
@@ -4831,7 +4906,7 @@ flatted@^3.1.0:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-follow-redirects@^1.14.8, follow-redirects@^1.15.0:
+follow-redirects@^1.14.0, follow-redirects@^1.14.8, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -4855,6 +4930,15 @@ form-data-encoder@1.7.2:
   version "1.7.2"
   resolved "https://registry.npmjs.org/form-data-encoder/-/form-data-encoder-1.7.2.tgz"
   integrity sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==
+
+form-data@^2.3.3:
+  version "2.5.1"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-2.5.1.tgz"
+  integrity sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.6"
+    mime-types "^2.1.12"
 
 form-data@^4.0.0:
   version "4.0.0"
@@ -5040,7 +5124,7 @@ glob@^10.2.2, glob@^10.3.10:
     minipass "^5.0.0 || ^6.0.2 || ^7.0.0"
     path-scurry "^1.10.1"
 
-glob@^7.1.3, glob@7.1.7:
+glob@^7.0.0, glob@^7.1.3, glob@7.1.7:
   version "7.1.7"
   resolved "https://registry.npmjs.org/glob/-/glob-7.1.7.tgz"
   integrity sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
@@ -5561,6 +5645,11 @@ internal-slot@^1.0.3, internal-slot@^1.0.4:
     get-intrinsic "^1.2.0"
     has "^1.0.3"
     side-channel "^1.0.4"
+
+interpret@^1.0.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
+  integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 ip-regex@^4.0.0:
   version "4.3.0"
@@ -8618,12 +8707,24 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
+readline-sync@^1.4.10:
+  version "1.4.10"
+  resolved "https://registry.npmjs.org/readline-sync/-/readline-sync-1.4.10.tgz"
+  integrity sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==
+
 receptacle@^1.3.2:
   version "1.3.2"
   resolved "https://registry.npmjs.org/receptacle/-/receptacle-1.3.2.tgz"
   integrity sha512-HrsFvqZZheusncQRiEE7GatOAETrARKV/lnfYicIm8lbvp/JQOdADOfhjBd2DajvoszEyxSM6RlAAIZgEoeu/A==
   dependencies:
     ms "^2.1.1"
+
+rechoir@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.npmjs.org/rechoir/-/rechoir-0.6.2.tgz"
+  integrity sha512-HFM8rkZ+i3zrV+4LQjwQ0W+ez98pApMGM3HUrN04j3CqzPOzl9nmP15Y8YXNm8QHGv/eacOVEjqhmWpkRV0NAw==
+  dependencies:
+    resolve "^1.1.6"
 
 recoil@^0.7.7:
   version "0.7.7"
@@ -8777,7 +8878,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.npmjs.org/resolve-url/-/resolve-url-0.2.1.tgz"
   integrity sha512-ZuF55hVUQaaczgOIwqWzkEcEidmlD/xl44x1UZnhOXcYuFN2S6+rcxpG+C1N3So0wvNI3DmJICUFfu2SxhBmvg==
 
-resolve@^1.10.0, resolve@^1.14.2, resolve@^1.19.0, resolve@^1.22.1:
+resolve@^1.1.6, resolve@^1.10.0, resolve@^1.14.2, resolve@^1.19.0, resolve@^1.22.1:
   version "1.22.1"
   resolved "https://registry.npmjs.org/resolve/-/resolve-1.22.1.tgz"
   integrity sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==
@@ -8814,6 +8915,15 @@ reusify@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
+
+revai-node-sdk@^3.8.5:
+  version "3.8.5"
+  resolved "https://registry.npmjs.org/revai-node-sdk/-/revai-node-sdk-3.8.5.tgz"
+  integrity sha512-BUld7yIKiAYiniyAcVIhy6uHmJs8Ba9d2e0qgyjKII9iHSZGKvfcNFGXl8u3MHB587ytj3ne5z7B0o5MpzzxvQ==
+  dependencies:
+    axios "^0.21.1"
+    form-data "^2.3.3"
+    websocket "^1.0.34"
 
 rgbcolor@^1.0.1:
   version "1.0.1"
@@ -8984,6 +9094,15 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+
+shelljs@^0.8.5:
+  version "0.8.5"
+  resolved "https://registry.npmjs.org/shelljs/-/shelljs-0.8.5.tgz"
+  integrity sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==
+  dependencies:
+    glob "^7.0.0"
+    interpret "^1.0.0"
+    rechoir "^0.6.2"
 
 side-channel@^1.0.4:
   version "1.0.4"
@@ -10141,7 +10260,7 @@ webidl-conversions@^3.0.0:
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
 
-websocket@^1.0.32:
+websocket@^1.0.32, websocket@^1.0.34:
   version "1.0.34"
   resolved "https://registry.npmjs.org/websocket/-/websocket-1.0.34.tgz"
   integrity sha512-PRDso2sGwF6kM75QykIesBijKSVceR6jL2G8NGYyq2XrItNC2P5/qL5XeR056GhA+Ly7JMFvJb9I312mJfmqnQ==
@@ -10212,6 +10331,14 @@ which@^4.0.0:
   integrity sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==
   dependencies:
     isexe "^3.1.1"
+
+whisper-node@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/whisper-node/-/whisper-node-1.1.1.tgz"
+  integrity sha512-s1czx7pL0g63QOz0X9oAu7vOf4GzmFfQIy6J7msOAH5Yyiy+4a3w6+Uv0hiHvHkfBWk/+hG8nY3VEFdIapF83g==
+  dependencies:
+    readline-sync "^1.4.10"
+    shelljs "^0.8.5"
 
 whisper-speech-to-text@^1.0.3:
   version "1.0.3"

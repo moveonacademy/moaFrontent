@@ -43,7 +43,6 @@ import { Box,  CardContent,Container, CardActions,Button, Stack ,Typography } fr
 
 import Autocomplete from '@mui/material/Autocomplete';
 import {useDropzone} from 'react-dropzone'
-const NFT_STORAGE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGE3YTEwQTE3MWIzNUUyYThkMTI2NTc0RjIzMDQ0N0U2NTJjMzBhYTkiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5MDgyMDc2Njg3MCwibmFtZSI6Ik1vdmVPbkFjYWRlbXkifQ.hJgbUMIjnyiHxNa8HLEGl9JLcbyq3qoNj8Fkrj3X-RU'
 
 import Alert from '@mui/material/Alert';
 import { NFTStorage } from 'nft.storage'
@@ -82,7 +81,7 @@ const Container2 = styled.div`
   transition: border .24s ease-in-out;
 `;
 const Programs = () => {
-  const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
+  const client = new NFTStorage({ token: process.env.config.NFT_UPLOAD })
 
 const {Moralis,user:userInfo}=useMoralis()
   const [change, setChange] = useState(false);
@@ -432,8 +431,8 @@ const [levels, setLevels] = useState([]);
   
                   const newimage = image.replace("ipfs://", "https://");
                   const final = newimage.replace("/pdfPrograma.pdf", ".ipfs.dweb.link/pdfPrograma.pdf");
-                 
-                  setAvatar(final);
+                 console.log(final)
+                  setAvatar(newimage.replace("/pdfPrograma.pdf", ".ipfs.dweb.link/pdfPrograma.pdf"));
                   resolve(final);
                 } catch (error) {
                   reject(error);
