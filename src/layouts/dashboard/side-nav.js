@@ -69,7 +69,7 @@ const [,setEmail]=useState("")
 async function init(){
   let user=await Moralis.User.current()
 
-if(user.get("email")){
+if(user?.get("email")){
 console.log("text")
   setEmail(user.get("email"))
   
@@ -297,7 +297,7 @@ return
               m: 0
             }}
           >
-            {isAdmin?user?.get("email")==="golfredo.pf@gmail.com"||user.get("email")==="sistemamoa2023@gmail.com"?itemsAdminPro.map((item) => {
+            {isAdmin?user?.get("email")==="golfredo.pf@gmail.com"||user?.get("email")==="sistemamoa2023@gmail.com"?itemsAdminPro.map((item) => {
               const active = item.path ? (pathname === item.path) : false;
 
               return (
