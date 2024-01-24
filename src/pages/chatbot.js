@@ -23,7 +23,7 @@ import user from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Box } from '@mui/system';
 // ... (código anterior)
-const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API, dangerouslyAllowBrowser: true })
+const openai = new OpenAI({ apiKey:process.env.NEXT_PUBLIC_OPENAI_API })
 
 const Chatbot = () => {
   'use strict';
@@ -60,7 +60,7 @@ const Chatbot = () => {
       
       let res=await Moralis.Cloud.run(
         "chatgpt",
-        { history:newHistory, userResponse:values.userResponse}
+        { history:newHistory, userResponse:values.userResponse }
       );
      
     setHistory([...newHistory, {role:"assistant",content:res}])
@@ -601,19 +601,7 @@ useEffect(()=>{
         style={{
           flexGrow: 1,}}
       />:<div style={{justifyContent:"center",alignItems:'center',flex:1}}><CircularProgress size={20}/></div>}
-{/* 
-            <MessageInput 
-            attachButton={false}  
-            style={{
-              flexGrow: 1,
-              borderTop: 0,
-              flexShrink: "initial"
-            }}
-            id="talk-button"
-            type="button"
-            sendDisabled={false} value={values.userResponse} onChange={handleChange} placeholder="Type message here" />
-        
-         */}
+
           </div>
         </ChatContainer>
       </MainContainer>
