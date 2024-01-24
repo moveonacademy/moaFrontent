@@ -662,6 +662,15 @@ export const itemsSupport = [
       </SvgIcon>
     )
   },
+  {
+    title: 'Pagos',
+    path: '/payments',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
 ];
 
 export const itemsMoveOnSchool = [
@@ -734,6 +743,25 @@ export const itemsManagerMoveOn = [
   {
     title: 'Agregar Atencion al cliente',
     path: '/customerSupport',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Coordinadores',
+    path: '/coordination',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  
+  {
+    title: 'Administradores',
+    path: '/administration',
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />

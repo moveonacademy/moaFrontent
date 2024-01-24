@@ -840,7 +840,7 @@ if(user){
             >
               
               
-            { !manager?null: <div>
+            { false?null: <div>
               <Stack spacing={1}>
                 <Typography variant="h4">
                   Agregar Administrador
