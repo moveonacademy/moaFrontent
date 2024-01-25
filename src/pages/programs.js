@@ -104,7 +104,7 @@ const {Moralis,user:userInfo}=useMoralis()
           setValue(res.attributes.unities)
           setAvatar(res.attributes.pdfCourse);
 
-      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programText:res.attributes.programText,programLevel:res.attributes.programLevel})  
+      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programText1:res.attributes.programText1,programLevel:res.attributes.programLevel})  
   
     },
     []
@@ -223,13 +223,61 @@ async function handleProgram(){
     return
   }
   
-
-  if(values.programText!==""){
-    res.set("programText",values.programText)
+  if(values.programText7!==""){
+    res.set("programText1",values.programText7)
   } else{  
       setLoading(false)
 
-    setError("Falta el texto del programa")
+    setError("Falta programa")
+    return
+  }
+
+  if(values.programText6!==""){
+    res.set("programText1",values.programText6)
+  } else{  
+      setLoading(false)
+
+    setError("Falta programa")
+    return
+  }
+  if(values.programText5!==""){
+    res.set("programText1",values.programText5)
+  } else{  
+      setLoading(false)
+
+    setError("Falta programa")
+    return
+  }
+  if(values.programText4!==""){
+    res.set("programText1",values.programText4)
+  } else{  
+      setLoading(false)
+
+    setError("Falta programa")
+    return
+  }
+  if(values.programText3!==""){
+    res.set("programText3",values.programText3)
+  } else{  
+      setLoading(false)
+
+    setError("Falta programa")
+    return
+  }
+  if(values.programText2!==""){
+    res.set("programText2",values.programText2)
+  } else{  
+      setLoading(false)
+
+    setError("Falta programa")
+    return
+  }
+  if(values.programText1!==""){
+    res.set("programText1",values.programText1)
+  } else{  
+      setLoading(false)
+
+    setError("Falta programa")
     return
   }
   if(values.programLevel===""){
@@ -285,10 +333,52 @@ async function handleProgram(){
       setError("Falta la descripcion del programa")
       return
     }
-    if(values.programText===""){
+    if(values.programText1===""){
       setLoading(false)
 
-      setError("Falta el texto del programa")
+      setError("Falta el programa")
+      return
+    }
+    
+    if(values.programText2===""){
+      setLoading(false)
+
+      setError("Falta el programa")
+      return
+    }
+    
+    if(values.programText3===""){
+      setLoading(false)
+
+      setError("Falta el programa")
+      return
+    }
+    
+    if(values.programText4===""){
+      setLoading(false)
+
+      setError("Falta el programa")
+      return
+    }
+    
+    if(values.programText5===""){
+      setLoading(false)
+
+      setError("Falta el programa")
+      return
+    }
+    
+    if(values.programText6===""){
+      setLoading(false)
+
+      setError("Falta el programa")
+      return
+    }
+    
+    if(values.programText7==""){
+      setLoading(false)
+
+      setError("Falta el programa")
       return
     }
     if(value.length===0){
@@ -318,8 +408,14 @@ async function handleProgram(){
    } */
 
     course.set("programName",values.programName)     
-    course.set("programText",values.programText)       
-  
+    course.set("programText1",values.programText1)       
+    course.set("programText2",values.programText2)       
+    course.set("programText3",values.programText3)       
+    course.set("programText4",values.programText4)       
+    course.set("programText5",values.programText5)       
+    course.set("programText6",values.programText6)       
+    course.set("programText7",values.programText7)       
+
     course.set("programDescription",values.programDescription)       
     course.set("supportEmail",user.get("email"))       
     course.set("unities",value)   
@@ -345,7 +441,14 @@ const [levels, setLevels] = useState([]);
     programName:"",
     programDescription: '',
     programLevel:"",
-    programText:"",
+    programText1:"",
+    programText2:"",
+    programText3:"",
+    programText4:"",
+    programText5:"",
+    programText6:"",
+    programText7:"",
+
   });
 
   const handleChange = useCallback(
@@ -589,13 +692,13 @@ const [levels, setLevels] = useState([]);
          
 <TextField
                   fullWidth
-                  label="Programa completo"
-                  name="programText"
+                  label="unidades y competecias"
+                  name="programText1"
                   multiline={true}
                   height={"500px"}
                   onChange={handleChange}
                   required
-                  rows={10}
+                  rows={3}
 
                   style={{
                     marginTop:10,
@@ -603,10 +706,120 @@ const [levels, setLevels] = useState([]);
                     marginLeft:20,marginRight:20,
                   
                   }}
-                  value={values.programText}
+                  value={values.programText1}
                 />
-                 
+                
+<TextField
+                  fullWidth
+                  label="gramatica y vocabularies"
+                  name="programText2"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
 
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText2}
+                /> 
+
+<TextField
+                  fullWidth
+                  label="recursos"
+                  name="programText3"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText3}
+                />
+                
+<TextField
+                  fullWidth
+                  label="cultural"
+                  name="programText4"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText4}
+                />
+                   
+<TextField
+                  fullWidth
+                  label="actividades de presentación"
+                  name="programText5"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText5}
+                />   
+                                <TextField
+                                                  fullWidth
+                                                  label="actividades de práctica"
+                                                  name="programText6"
+                                                  multiline={true}
+                                                  height={"500px"}
+                                                  onChange={handleChange}
+                                                  required
+                                                  rows={3}
+                                
+                                                  style={{
+                                                    marginTop:10,
+                                                    marginBottom:10,
+                                                    marginLeft:20,marginRight:20,
+                                                  
+                                                  }}
+                                                  value={values.programText6}
+                                                />
+                                                 <TextField
+                                                  fullWidth
+                                                  label="actividades de uso"
+                                                  name="programText7"
+                                                  multiline={true}
+                                                  height={"500px"}
+                                                  onChange={handleChange}
+                                                  required
+                                                  rows={3}
+                                
+                                                  style={{
+                                                    marginTop:10,
+                                                    marginBottom:10,
+                                                    marginLeft:20,marginRight:20,
+                                                  
+                                                  }}
+                                                  value={values.programText7}
+                                                />
    {isModerator?
     <LoadingButton
                          fullWidth
