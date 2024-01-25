@@ -104,7 +104,7 @@ const {Moralis,user:userInfo}=useMoralis()
           setValue(res.attributes.unities)
           setAvatar(res.attributes.pdfCourse);
 
-      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programText1:res.attributes.programText1,programLevel:res.attributes.programLevel})  
+      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programText1:res.attributes.programText1,programText2:res.attributes.programText2,programText3:res.attributes.programText3,programText4:res.attributes.programText4,programText5:res.attributes.programText5,programText6:res.attributes.programText6,programText7:res.attributes.programText7,programLevel:res.attributes.programLevel})  
   
     },
     []
