@@ -122,7 +122,7 @@ if(userInfo.get("email")){
   console.log("object "+JSON.stringify(object))
 
   console.log("object "+JSON.stringify(object.attributes.typeOfUser))
-  if(object&&(object.attributes.typeOfUser==="manager"||object.attributes.typeOfUser==="admin")){
+  if(object&&(object.attributes.typeOfUser!==undefined||object.attributes.typeOfUser==="admin")){
    console.log("entrooo")
   setIsModerator(true)
  
