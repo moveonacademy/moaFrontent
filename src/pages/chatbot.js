@@ -44,13 +44,29 @@ const Chatbot = () => {
   if (DID_API.key == '🤫') alert('Please put your API key inside ./api.json and restart.');
   const [isLoadingAudio, setLoadingAudio] = useState(false);
   const recorderControls = useAudioRecorder()
+  const blobToBase64 = (blob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
   const addAudioElement = async(blob) => {
     try{
-      
-    const file = new File([blob], "input.wav", { type: "audio/wav" });
-    console.log(JSON.stringify(job))
+      const base64Audio = await blobToBase64(blob);
 
-      let newHistory = [...history, { role: "user", content: "hola"}];
+    //const file = new File([blob], "input.wav", { type: "audio/wav" });
+    let resTrascipt=await Moralis.Cloud.run(
+      "chatgptVoiceToText",
+      {   base64: base64Audio,  }
+    );
+console.log("translacion "+JSON.stringify(resTrascipt))
+      let newHistory = [...history, { role: "user", content: "hola como estas"}];
       
       let res=await Moralis.Cloud.run(
         "chatgpt",

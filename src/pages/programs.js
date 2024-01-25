@@ -104,7 +104,7 @@ const {Moralis,user:userInfo}=useMoralis()
           setValue(res.attributes.unities)
           setAvatar(res.attributes.pdfCourse);
 
-      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programLevel:res.attributes.programLevel})  
+      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programText:res.attributes.programText,programLevel:res.attributes.programLevel})  
   
     },
     []
@@ -223,6 +223,15 @@ async function handleProgram(){
     return
   }
   
+
+  if(values.programText!==""){
+    res.set("programText",values.programText)
+  } else{  
+      setLoading(false)
+
+    setError("Falta el texto del programa")
+    return
+  }
   if(values.programLevel===""){
     res.set("programLevel","Kids") 
     unityLVL="Kids"
@@ -276,6 +285,12 @@ async function handleProgram(){
       setError("Falta la descripcion del programa")
       return
     }
+    if(values.programText===""){
+      setLoading(false)
+
+      setError("Falta el texto del programa")
+      return
+    }
     if(value.length===0){
       setLoading(false)
 
@@ -290,6 +305,8 @@ async function handleProgram(){
       course.set("programLevel",values.programLevel) 
 
     }
+    
+    /* 
    if(avatar.length>0) {
     course.set("pdfCourse",avatar)    
 
@@ -298,9 +315,11 @@ async function handleProgram(){
 
     setError("Falta el pdf del programa")
     return
-   }
+   } */
 
-    course.set("programName",values.programName)       
+    course.set("programName",values.programName)     
+    course.set("programText",values.programText)       
+  
     course.set("programDescription",values.programDescription)       
     course.set("supportEmail",user.get("email"))       
     course.set("unities",value)   
@@ -326,6 +345,7 @@ const [levels, setLevels] = useState([]);
     programName:"",
     programDescription: '',
     programLevel:"",
+    programText:"",
   });
 
   const handleChange = useCallback(
@@ -567,45 +587,25 @@ const [levels, setLevels] = useState([]);
         </Container>:null
 }
          
-              {imageLoading? <CircularProgress />:<div>
- {isModerator?  <CardActions> 
-           
-<Typography variant="h6">
-                Agrega un pdf del Programa
-         
-              </Typography>   
-     <section className="container">
-             <div className="container">
-              <Container2 {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>Arrasta una foto o haz click para seleccionarla</p>
-            </Container2>
-    
-   </div>
-    
-   </section>
-   </CardActions>:null}
+<TextField
+                  fullWidth
+                  label="Programa completo"
+                  name="programText"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={10}
 
-   <CardContent>
-     <Box
-     style={{height:"100%",width:"100%"}}
-       sx={{
-         alignItems: 'flex-start',
-         display: 'flex',
-
-         flexDirection: 'column'
-       }}
-     >
-      {avatar?
-      <div>
-        
-          <PdfViewer avatar={avatar}/>
-   
-    </div>:null}
-       
-     </Box>
-   </CardContent>
-   </div>}
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText}
+                />
+                 
 
    {isModerator?
     <LoadingButton
