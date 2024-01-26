@@ -23,13 +23,13 @@
 /* eslint-disable no-inline-comments */
 import { ThemeProvider } from '@mui/styles'
 
-import {   useState,useEffect } from 'react';
+import {   useState,useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import CircularProgress from '@mui/material/CircularProgress';
 import dynamic from 'next/dynamic'
 import MaterialTable from 'material-table';
 
-import { Box, CardContent , Container,  Stack ,Typography } from '@mui/material';
+import { Box, CardContent , Container,  TextField,Stack ,Typography } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import {  useMoralis } from 'react-moralis';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -106,9 +106,10 @@ const {Moralis}=useMoralis()
           setStateID(clickedRow.id)
           console.log(JSON.stringify(res))
           setValue(res.attributes.unities)
-      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programLevel:res.attributes.programLevel,pdfCourse:res.attributes.pdfCourse})  
+      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programLevel:res.attributes.programLevel,pdfCourse:res.attributes.pdfCourse,programText1:res.attributes.programText1,programText2:res.attributes.programText2,programText3:res.attributes.programText3,programText4:res.attributes.programText4,programText5:res.attributes.programText5,programText6:res.attributes.programText6,programText7:res.attributes.programText7,})  
   
     }
+    var [moderator,setModerator]=useState()
 
 
   const fetchData = async () =>{
@@ -122,12 +123,10 @@ const {Moralis}=useMoralis()
       query3.equalTo("teacherEmail",user.get("email"))
        const object3 = await query3.first();
        const object4 = await query4.find();
-      console.log(JSON.stringify(object4))
-      console.log(JSON.stringify(object3.attributes.supportEmail))
-
+       
       const query2 = new Moralis.Query("Unities");
       if(!object3){
- 
+ setModerator(true)
       }else{
         query2.equalTo("supportEmail",object3.attributes.supportEmail)
 
@@ -175,12 +174,27 @@ if(object){
 
 var [error,setError]=useState("")
 
+const handleChange = useCallback(
+  (event) => {
+
+    setValues((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value
+    }));
+  },
+  []
+);
 var [imageLoading,setImageLoading]=useState(false)
 
 
   const [values, setValues] = useState({
     programName:"",
     programDescription: '',
+    programText1:"",
+    programText2:"",
+    programText3:"",
+    programText4:"",
+    programText5:"",
     programLevel:"",
     pdfCourse:""
   });
@@ -284,6 +298,136 @@ var [imageLoading,setImageLoading]=useState(false)
 
               </div>
               
+<TextField
+                  fullWidth
+                  label="unidades y competecias"
+                  name="programText1"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText1}
+                />
+                
+<TextField
+                  fullWidth
+                  label="gramatica y vocabularies"
+                  name="programText2"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText2}
+                /> 
+
+<TextField
+                  fullWidth
+                  label="recursos"
+                  name="programText3"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText3}
+                />
+                
+<TextField
+                  fullWidth
+                  label="cultural"
+                  name="programText4"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText4}
+                />
+                   
+<TextField
+                  fullWidth
+                  label="actividades de presentación"
+                  name="programText5"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText5}
+                />   
+                                <TextField
+                                                  fullWidth
+                                                  label="actividades de práctica"
+                                                  name="programText6"
+                                                  multiline={true}
+                                                  height={"500px"}
+                                                  onChange={handleChange}
+                                                  required
+                                                  rows={3}
+                                
+                                                  style={{
+                                                    marginTop:10,
+                                                    marginBottom:10,
+                                                    marginLeft:20,marginRight:20,
+                                                  
+                                                  }}
+                                                  value={values.programText6}
+                                                />
+                                                 <TextField
+                                                  fullWidth
+                                                  label="actividades de uso"
+                                                  name="programText7"
+                                                  multiline={true}
+                                                  height={"500px"}
+                                                  onChange={handleChange}
+                                                  required
+                                                  rows={3}
+                                
+                                                  style={{
+                                                    marginTop:10,
+                                                    marginBottom:10,
+                                                    marginLeft:20,marginRight:20,
+                                                  
+                                                  }}
+                                                  value={values.programText7}
+                                                />
               {imageLoading? <CircularProgress />:<div>
               <p> Haga doble click en el programa para verlo</p>
            

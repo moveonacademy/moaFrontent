@@ -105,7 +105,7 @@ const {Moralis}=useMoralis()
           setStateID(clickedRow.id)
           console.log(JSON.stringify(res))
           setValue(res.attributes.unities)
-      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programLevel:res.attributes.programLevel,pdfCourse:res.attributes.pdfCourse})  
+      setValues({programName:res.attributes.programName,programDescription:res.attributes.programDescription,programLevel:res.attributes.programLevel,pdfCourse:res.attributes.pdfCourse,programText1:res.attributes.programText1,programText2:res.attributes.programText2,programText3:res.attributes.programText3,programText4:res.attributes.programText4,programText5:res.attributes.programText5,programText6:res.attributes.programText6,programText7:res.attributes.programText7})  
   
     }
 
@@ -125,9 +125,8 @@ const {Moralis}=useMoralis()
        const object4 = await query4.find();
 
       const query2 = new Moralis.Query("Unities");
-      if(!object3){
-return 
-      }
+      if(object3){
+ 
       query2.equalTo("supportEmail",object3.attributes.supportEmail)
      
 
@@ -157,6 +156,7 @@ if(object){
       setRowsCourse([...courses])
     } 
     
+  }
     catch(err){
       console.log(err);
     }
@@ -174,9 +174,16 @@ var [error,setError]=useState("")
 var [imageLoading,setImageLoading]=useState(false)
 
 
+
   const [values, setValues] = useState({
     programName:"",
     programDescription: '',
+    
+    programText1:"",
+    programText2:"",
+    programText3:"",
+    programText4:"",
+    programText5:"",
     programLevel:"",
     pdfCourse:""
   });
@@ -268,18 +275,153 @@ var [imageLoading,setImageLoading]=useState(false)
       >
         
         <Container maxWidth="xl">
-          <Stack spacing={3}>
-          <div>
-            
-          <Typography variant="h6">
+
+        <Typography variant="h6">
                 Programas de Profesores
         
               </Typography>
-             
+           
+          <Stack spacing={3}>
+          <div>
+                 
+<TextField
+                  fullWidth
+                  label="unidades y competecias"
+                  name="programText1"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText1}
+                />
+                
+<TextField
+                  fullWidth
+                  label="gramatica y vocabularies"
+                  name="programText2"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText2}
+                /> 
+
+<TextField
+                  fullWidth
+                  label="recursos"
+                  name="programText3"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText3}
+                />
+                
+<TextField
+                  fullWidth
+                  label="cultural"
+                  name="programText4"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText4}
+                />
+                   
+<TextField
+                  fullWidth
+                  label="actividades de presentación"
+                  name="programText5"
+                  multiline={true}
+                  height={"500px"}
+                  onChange={handleChange}
+                  required
+                  rows={3}
+
+                  style={{
+                    marginTop:10,
+                    marginBottom:10,
+                    marginLeft:20,marginRight:20,
+                  
+                  }}
+                  value={values.programText5}
+                />   
+                                <TextField
+                                                  fullWidth
+                                                  label="actividades de práctica"
+                                                  name="programText6"
+                                                  multiline={true}
+                                                  height={"500px"}
+                                                  onChange={handleChange}
+                                                  required
+                                                  rows={3}
+                                
+                                                  style={{
+                                                    marginTop:10,
+                                                    marginBottom:10,
+                                                    marginLeft:20,marginRight:20,
+                                                  
+                                                  }}
+                                                  value={values.programText6}
+                                                />
+                                                 <TextField
+                                                  fullWidth
+                                                  label="actividades de uso"
+                                                  name="programText7"
+                                                  multiline={true}
+                                                  height={"500px"}
+                                                  onChange={handleChange}
+                                                  required
+                                                  rows={3}
+                                
+                                                  style={{
+                                                    marginTop:10,
+                                                    marginBottom:10,
+                                                    marginLeft:20,marginRight:20,
+                                                  
+                                                  }}
+                                                  value={values.programText7}
+                                                />
               
 
               </div>
-              
+              {values.pdfCourse!==""?
+      <div>
+          <PdfViewer avatar={values.pdfCourse}/>
+   
+    </div>:null}
               {imageLoading? <CircularProgress />:<div>
               <p> Haga doble click en el programa para verlo</p>
            
@@ -293,11 +435,7 @@ var [imageLoading,setImageLoading]=useState(false)
          flexDirection: 'column'
        }}
      >
-      {values.pdfCourse!==""?
-      <div>
-          <PdfViewer avatar={values.pdfCourse}/>
-   
-    </div>:null}
+     
        
      </Box>
    </CardContent>

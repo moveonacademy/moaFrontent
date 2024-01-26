@@ -117,6 +117,7 @@ const {Moralis,user:userInfo}=useMoralis()
 console.log("userInfo "+userInfo.get("email"))
 if(userInfo.get("email")){
   const query = new Moralis.Query("Moderators");
+  
   query.equalTo("email",userInfo.get("email"))
   const object = await query.first();
   console.log("object "+JSON.stringify(object))
