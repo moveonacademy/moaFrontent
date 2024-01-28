@@ -216,6 +216,10 @@ async function handleProgram(){
     return
   }
 
+  if(avatar){
+    res.set("pdfCourse",avatar)
+  } else{    
+  }
   if(values.programDescription!==""){
     res.set("programDescription",values.programDescription)
   } else{    setLoading(false)
@@ -397,16 +401,10 @@ async function handleProgram(){
 
     }
     
-    /* 
    if(avatar.length>0) {
     course.set("pdfCourse",avatar)    
 
-   }else{
-    setLoading(false)
-
-    setError("Falta el pdf del programa")
-    return
-   } */
+   }
 
     course.set("programName",values.programName)     
     course.set("programText1",values.programText1)       
@@ -821,6 +819,24 @@ const [levels, setLevels] = useState([]);
                                                   }}
                                                   value={values.programText7}
                                                 />
+
+<CardActions> 
+           
+           <Typography variant="h6">
+                           Agrega un pdf del Programa
+                    
+                         </Typography>   
+                <section className="container">
+                        <div className="container">
+                         <Container2 {...getRootProps()}>
+                         <input {...getInputProps()} />
+                         <p>Arrasta una foto o haz click para seleccionarla</p>
+                       </Container2>
+               
+              </div>
+               
+              </section>
+              </CardActions>
    {isModerator?
     <LoadingButton
                          fullWidth
