@@ -189,9 +189,19 @@ setRowsToDelete(event)
 
 
 const [error,setError]=useState('')
-var [avatar,setAvatar]=useState()
+var [avatar,setAvatar]=useState(null)
 var [imageLoading,setImageLoading]=useState(false)
 
+const failureCallBack=(e)=>{
+  console.log("failureCallBack "+JSON.stringify(e))
+
+}
+const successCallBack=(e)=>{
+  console.log("successCallBack "+JSON.stringify(e.info.url))
+setAvatar(e.info.url)
+setValues({pdfCourse:e.info.url})
+  console.log("successCallBack "+JSON.stringify(e))
+}
 async function handleProgram(){
   setLoading(true)
   const Courses=Moralis.Object.extend("Programs")
@@ -218,8 +228,7 @@ async function handleProgram(){
 
   if(avatar){
     res.set("pdfCourse",avatar)
-  } else{    
-  }
+  } 
   if(values.programDescription!==""){
     res.set("programDescription",values.programDescription)
   } else{    setLoading(false)
@@ -590,11 +599,66 @@ const [levels, setLevels] = useState([]);
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
           py: 8
         }}
       >
+      
+             
+                {error!==""?  <Alert variant="outlined" severity="error">{error}</Alert>:null}
          
+        <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8
+        }}
+      > 
+         
+        <Container maxWidth="xl">
+          <Stack spacing={3}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              spacing={4}
+            >
+              <Stack spacing={1}>
+                <Typography variant="h4">
+                  Todos los Programas
+                </Typography>
+               
+              </Stack>
+            </Stack>
+            <div style={{ height: 400, width: '100%' }}>
+              
+      <DataGrid
+              onCellDoubleClick={handleCellClick}
+            onRowSelectionModelChange={handleDelete}
+            checkboxSelection
+        rows={rowsCourse}
+        autoPageSize
+        columns={columnsCourse}
+        
+      />{isModerator&&
+         <Button
+                 
+                  
+                 onClick={handleErase}
+                 variant="contained"
+               >
+                 - Delete
+               </Button>}
+
+
+
+    </div>
+          
+          </Stack>
+          
+        </Container>
+        
+      </Box>
+      
+      <CardContent>   
       { isModerator? <Container maxWidth="xl">
           <Stack spacing={3}>
           <div>
@@ -826,7 +890,72 @@ const [levels, setLevels] = useState([]);
                            Agrega un pdf del Programa
                     
                          </Typography>   
-                <section className="container">
+                         <WidgetLoader /> 
+      <Widget
+        sources={['local',]} // set the sources available for uploading -> by default
+        // all sources are available. More information on their use can be found at
+        // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
+        // and ID's as an object. More information on their use can be found at
+        // https://cloudinary.com/documentation/upload_widget#the_sources_parameter
+        resourceType={'auto'} // optionally set with 'auto', 'image', 'video' or 'raw' -> default = 'auto'
+        cloudName={'dug5cohaj'} // your cloudinary account cloud name.
+        // Located on https://cloudinary.com/console/
+        uploadPreset={'tzzlhalw'} // check that an upload preset exists and check mode is signed or unisgned
+        buttonText={'CARGAR '} // default 'Upload Files'
+        style={{
+              color: 'white',
+              border: 'none',
+              width: '120px',
+              backgroundColor: 'green',
+              borderRadius: '4px',
+              height: '35px'
+            }} // inline styling only or style id='cloudinary_upload_button'
+        folder={'programas'} // set cloudinary folder name to send file
+        // https://support.cloudinary.com/hc/en-us/articles/203062071-How-to-crop-images-via-the-Upload-Widget-#:~:text=Click%20on%20the%20%22Edit%22%20link,OK%22%20and%20Save%20the%20changes.
+        // more information here on cropping. Coordinates are returned or upload preset needs changing
+        // will only allow 1 file to be uploaded if cropping set to true
+        onSuccess={successCallBack} // add success callback -> returns result
+        onFailure={failureCallBack} // add failure callback -> returns 'response.error' + 'response.result'
+
+        logging={true} // logs will be provided for success and failure messages,
+        // set to false for production -> default = true
+        // To use the file name as the public_id use 'use_filename={true}' parameter
+        use_filename={true} // tell Cloudinary to use the original name of the uploaded
+        // file as its public ID -> default = true,
+        destroy={false} 
+        autoClose={false} // will close the widget after success. Default true
+
+        widgetStyles={{
+          palette: {
+            window: '#737373',
+            windowBorder: '#FFFFFF',
+            tabIcon: '#FF9600',
+            menuIcons: '#D7D7D8',
+            textDark: '#DEDEDE',
+            textLight: '#FFFFFF',
+            link: '#0078FF',
+            action: '#FF620C',
+            inactiveTabIcon: '#B3B3B3',
+            error: '#F44235',
+            inProgress: '#0078FF',
+            complete: '#20B832',
+            sourceBg: '#909090'
+          },
+         
+        }} // ability to customise the style of the widget uploader
+
+
+        // 👇 FOR SIGNED UPLOADS ONLY 👇
+        accepts={'application/json'} // for signed uploads only -> default = 'application/json'
+        contentType={'application/json'} // for signed uploads only -> default = 'application/json'
+        withCredentials={true} // default = true -> check axios documentation for more information
+     
+        apiKey={"497332283688787"}
+        unique_filename={true} 
+        
+      />
+
+                {/* <section className="container">
                         <div className="container">
                          <Container2 {...getRootProps()}>
                          <input {...getInputProps()} />
@@ -835,14 +964,15 @@ const [levels, setLevels] = useState([]);
                
               </div>
                
-              </section>
+              </section> */}
+             
               </CardActions>
+            
    {isModerator?
     <LoadingButton
-                         fullWidth
-                         size="large"
-                         sx={{ mt: 3 }}
-                         
+         fullWidth
+         size="large"
+        sx={{ mt: 3 }}
         loadingPosition="start"
         startIcon={<Save />}
         onClick={handleProgram}
@@ -851,62 +981,11 @@ const [levels, setLevels] = useState([]);
                   Agregar el Programa
 
       </LoadingButton>:null}
-             
-                {error!==""?  <Alert variant="outlined" severity="error">{error}</Alert>:null}
-         
-        <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8
-        }}
-      >  {values.pdfCourse?
-        <div>
-          
-            <PdfViewer avatar={values.pdfCourse}/>
-     
-      </div>:null}
-         
-        <Container maxWidth="xl">
-          <Stack spacing={3}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              spacing={4}
-            >
-              <Stack spacing={1}>
-                <Typography variant="h4">
-                  Todos los Programas
-                </Typography>
-               
-              </Stack>
-            </Stack>
-            <div style={{ height: 400, width: '100%' }}>
-              
-      <DataGrid
-              onCellDoubleClick={handleCellClick}
-            onRowSelectionModelChange={handleDelete}
-            checkboxSelection
-        rows={rowsCourse}
-        autoPageSize
-        columns={columnsCourse}
-        
-      />{isModerator&&
-         <Button
-                 
-                  
-                 onClick={handleErase}
-                 variant="contained"
-               >
-                 - Delete
-               </Button>}
-    </div>
-          </Stack>
-          
-        </Container>
-        
-      </Box>
-      
+
+   
+       
+   </CardContent>  
+   <PdfViewer avatar={avatar}/>
       </Box>
     </>
   );

@@ -69,7 +69,7 @@
     "react-dropzone": "^14.2.3",
     "react-helmet": "^6.1.0",
     "react-moralis": "^1.4.2",
-    "react-pdf": "^7.5.0",
+    "react-pdf": "latest",
     "react-responsive": "^9.0.2",
     "react-say": "^2.1.0",
     "react-stripe-checkout": "^2.6.3",
