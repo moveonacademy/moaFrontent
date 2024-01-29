@@ -200,7 +200,7 @@ const successCallBack=(e)=>{
   console.log("successCallBack "+JSON.stringify(e.info.url))
 setAvatar(e.info.url)
 setValues({pdfCourse:e.info.url})
-  console.log("successCallBack "+JSON.stringify(e))
+  console.log("successCallBack "+JSON.stringify(e.info.url))
 }
 async function handleProgram(){
   setLoading(true)
@@ -758,7 +758,7 @@ const [levels, setLevels] = useState([]);
                   label="unidades y competecias"
                   name="programText1"
                   multiline={true}
-                  height={"500px"}
+                  height={"800px"}
                   onChange={handleChange}
                   required
                   rows={3}
@@ -777,7 +777,7 @@ const [levels, setLevels] = useState([]);
                   label="gramatica y vocabularies"
                   name="programText2"
                   multiline={true}
-                  height={"500px"}
+                  height={"800px"}
                   onChange={handleChange}
                   required
                   rows={3}
@@ -796,7 +796,7 @@ const [levels, setLevels] = useState([]);
                   label="recursos"
                   name="programText3"
                   multiline={true}
-                  height={"500px"}
+                  height={"800px"}
                   onChange={handleChange}
                   required
                   rows={3}
@@ -815,7 +815,7 @@ const [levels, setLevels] = useState([]);
                   label="cultural"
                   name="programText4"
                   multiline={true}
-                  height={"500px"}
+                  height={"800px"}
                   onChange={handleChange}
                   required
                   rows={3}
@@ -834,7 +834,7 @@ const [levels, setLevels] = useState([]);
                   label="actividades de presentación"
                   name="programText5"
                   multiline={true}
-                  height={"500px"}
+                  height={"800px"}
                   onChange={handleChange}
                   required
                   rows={3}
@@ -852,7 +852,7 @@ const [levels, setLevels] = useState([]);
                                                   label="actividades de práctica"
                                                   name="programText6"
                                                   multiline={true}
-                                                  height={"500px"}
+                                                  height={"800px"}
                                                   onChange={handleChange}
                                                   required
                                                   rows={3}
@@ -870,7 +870,7 @@ const [levels, setLevels] = useState([]);
                                                   label="actividades de uso"
                                                   name="programText7"
                                                   multiline={true}
-                                                  height={"500px"}
+                                                  height={"800px"}
                                                   onChange={handleChange}
                                                   required
                                                   rows={3}
@@ -916,7 +916,7 @@ const [levels, setLevels] = useState([]);
         // will only allow 1 file to be uploaded if cropping set to true
         onSuccess={successCallBack} // add success callback -> returns result
         onFailure={failureCallBack} // add failure callback -> returns 'response.error' + 'response.result'
-
+        
         logging={true} // logs will be provided for success and failure messages,
         // set to false for production -> default = true
         // To use the file name as the public_id use 'use_filename={true}' parameter
@@ -946,9 +946,6 @@ const [levels, setLevels] = useState([]);
 
 
         // 👇 FOR SIGNED UPLOADS ONLY 👇
-        accepts={'application/json'} // for signed uploads only -> default = 'application/json'
-        contentType={'application/json'} // for signed uploads only -> default = 'application/json'
-        withCredentials={true} // default = true -> check axios documentation for more information
      
         apiKey={"497332283688787"}
         unique_filename={true} 
@@ -984,8 +981,8 @@ const [levels, setLevels] = useState([]);
 
    
        
-   </CardContent>  
-   <PdfViewer avatar={avatar}/>
+   </CardContent>  {!avatar?null:   <PdfViewer avatar={values.pdfCourse}/>
+}
       </Box>
     </>
   );
