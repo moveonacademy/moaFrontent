@@ -403,7 +403,7 @@ export const itemsTeacher = [
   },
   {
     title: 'Consultar Programas',
-    path: '/teacherDashboard',
+    path: '/programs',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
